@@ -81,6 +81,11 @@ class Dhl::GetQuote::Request
     end
   end
 
+  def payment_country_code(country_code)
+    @payment_country_code = country_code
+  end
+  
+
   def dimensions_unit
     @dimensions_unit ||= Dhl::GetQuote.dimensions_unit
   end
