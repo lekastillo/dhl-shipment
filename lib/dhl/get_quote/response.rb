@@ -152,4 +152,21 @@ protected
     end
       # @parsed_xml["DCTResponse"]["GetQuoteResponse"]["Srvs"]["Srv"]["MrkSrv"]
   end
+
+  
+  def shipping_services
+    @shipping_services ||= begin
+      srv = @parsed_xml["DCTResponse"]["GetQuoteResponse"]["BkgDetails"]
+      a = []
+      if srv.is_a? Array
+        srv.each{|aa| a << aa["MrkSrv"]}
+      else
+        a << srv["MrkSrv"]
+      end
+      a.flatten
+    end
+      # @parsed_xml["DCTResponse"]["GetQuoteResponse"]["Srvs"]["Srv"]["MrkSrv"]
+  end
+
+
 end
