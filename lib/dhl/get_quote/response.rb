@@ -80,6 +80,17 @@ class Dhl::GetQuote::Response
     end.sort{|a,b| a.code <=> b.code }
   end
 
+  def offered_shipping_services
+    shipping_services.select do
+      |m| m['TransInd'].to_s == "Y"
+    end.map do |m|
+      # Dhl::GetQuote::MarketService.new(m)
+      m
+    # end.sort{|a,b| a.code <=> b.code }
+    end
+  end
+  
+
   def all_services
     market_services.map do |m|
       Dhl::GetQuote::MarketService.new(m)
@@ -159,9 +170,9 @@ protected
       srv = @parsed_xml["DCTResponse"]["GetQuoteResponse"]["BkgDetails"]
       a = []
       if srv.is_a? Array
-        srv.each{|aa| a << aa["MrkSrv"]}
+        srv.each{|aa| a << aa["QtdShp"]}
       else
-        a << srv["MrkSrv"]
+        a << srv["QtdShp"]
       end
       a.flatten
     end
