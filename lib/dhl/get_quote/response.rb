@@ -45,7 +45,7 @@ class Dhl::GetQuote::Response
 
     trans_ind = qtd_shp.detect{|q| q["TransInd"] == "Y"}
 
-    qtd_s_in_ad_cur = qtd_shp.detect{|q| q.has_key?("QtdSInAdCur")}
+    qtd_s_in_ad_cur = [trans_ind].flatten.detect{|q| q.has_key?("QtdSInAdCur") and q["TransInd"] == "Y"}
 
     if qtd_s_in_ad_cur.blank?
       raise ResponseHasNoPriceError
@@ -84,9 +84,8 @@ class Dhl::GetQuote::Response
     shipping_services.select do
       |m| m['TransInd'].to_s == "Y"
     end.map do |m|
-      # Dhl::GetQuote::MarketService.new(m)
-      m
-    # end.sort{|a,b| a.code <=> b.code }
+      Dhl::GetQuote::ShippingService.new(m)
+    end.sort{|a,b| a.code <=> b.code }
     end
   end
   
@@ -95,6 +94,20 @@ class Dhl::GetQuote::Response
     market_services.map do |m|
       Dhl::GetQuote::MarketService.new(m)
     end.sort{|a,b| a.code <=> b.code }
+  end
+
+  def total_discount
+    return if error?
+
+    qtd_shp = [ @parsed_xml["DCTResponse"]["GetQuoteResponse"]["BkgDetails"]["QtdShp"] ].flatten
+
+    trans_ind = qtd_shp.detect{|q| q["TransInd"] == "Y"}
+    
+    if trans_ind
+      discount=fitrans_ind['TotalDiscount'].first
+    else
+      pricing = 0.0
+    end
   end
 
 protected
