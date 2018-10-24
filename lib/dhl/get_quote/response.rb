@@ -86,7 +86,6 @@ class Dhl::GetQuote::Response
     end.map do |m|
       Dhl::GetQuote::ShippingService.new(m)
     end.sort{|a,b| a.code <=> b.code }
-    end
   end
   
 
@@ -104,7 +103,7 @@ class Dhl::GetQuote::Response
     trans_ind = qtd_shp.detect{|q| q["TransInd"] == "Y"}
     
     if trans_ind
-      discount=fitrans_ind['TotalDiscount'].first
+      discount=trans_ind['TotalDiscount'].first
     else
       pricing = 0.0
     end

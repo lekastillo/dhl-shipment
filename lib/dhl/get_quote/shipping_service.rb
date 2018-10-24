@@ -23,7 +23,7 @@ protected
   def build_from_xml(xml_string)
     @parsed_xml = MultiXml.parse(xml_string)
 
-    @parsed_xml['MrkSrv'].each do |k,v|
+    @parsed_xml['QtdShp'].each do |k,v|
       @options[k] = v
       instance_variable_set("@#{underscore(k)}".to_sym, v)
       self.class.class_eval { attr_reader underscore(k).to_sym }

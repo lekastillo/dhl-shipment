@@ -7,6 +7,7 @@ require "dhl/get_quote/request"
 require "dhl/get_quote/response"
 require "dhl/get_quote/piece"
 require "dhl/get_quote/market_service"
+require "dhl/get_quote/shipping_service"
 
 class Dhl
   class GetQuote
