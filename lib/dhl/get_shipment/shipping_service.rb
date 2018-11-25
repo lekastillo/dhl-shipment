@@ -18,6 +18,9 @@ class Dhl::GetQuote::ShippingService
     @product_short_name || @local_product_name
   end
 
+  def total_amount
+  end
+
 protected
 
   def build_from_xml(xml_string)
