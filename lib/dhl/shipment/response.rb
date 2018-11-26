@@ -1,5 +1,5 @@
-class Dhl::GetQuote::Response
-  include Dhl::GetQuote::Helper
+class Dhl::Shipment::Response
+  include Dhl::Shipment::Helper
 
   attr_reader :raw_xml, :parsed_xml, :errors
   attr_reader :currency_code, :currency_role_type_code, :weight_charge, :total_amount, :total_tax_amount, :weight_charge_tax
@@ -21,9 +21,9 @@ class Dhl::GetQuote::Response
     if response_indicates_error?
       @error = case response_error_condition_code.to_s
       when "100"
-        Dhl::GetQuote::Upstream::ValidationFailureError.new(response_error_condition_data)
+        Dhl::Shipment::Upstream::ValidationFailureError.new(response_error_condition_data)
       else
-        Dhl::GetQuote::Upstream::UnknownError.new(response_error_condition_data)
+        Dhl::Shipment::Upstream::UnknownError.new(response_error_condition_data)
       end
     elsif condition_indicates_error?
       @errors = create_condition_errors
@@ -67,7 +67,7 @@ class Dhl::GetQuote::Response
 
   def validate_currency_role_type_code!(currency_role_type_code)
     unless CURRENCY_ROLE_TYPE_CODES.include?(currency_role_type_code)
-      raise Dhl::GetQuote::OptionsError,
+      raise Dhl::Shipment::OptionsError,
         "'#{currency_role_type_code}' is not one of #{CURRENCY_ROLE_TYPE_CODES.join(', ')}"
     end
   end
@@ -76,7 +76,7 @@ class Dhl::GetQuote::Response
     market_services.select do
       |m| m['TransInd'].to_s == "Y" || m['MrkSrvInd'].to_s == "Y"
     end.map do |m|
-      Dhl::GetQuote::MarketService.new(m)
+      Dhl::Shipment::MarketService.new(m)
     end.sort{|a,b| a.code <=> b.code }
   end
 
@@ -84,14 +84,14 @@ class Dhl::GetQuote::Response
     shipping_services.select do
       |m| m['TransInd'].to_s == "Y"
     end.map do |m|
-      Dhl::GetQuote::ShippingService.new(m)
+      Dhl::Shipment::ShippingService.new(m)
     end.sort{|a,b| a.code <=> b.code }
   end
   
 
   def all_services
     market_services.map do |m|
-      Dhl::GetQuote::MarketService.new(m)
+      Dhl::Shipment::MarketService.new(m)
     end.sort{|a,b| a.code <=> b.code }
   end
 
@@ -150,7 +150,7 @@ protected
     notes.map do |note|
       error_code = note["Condition"]["ConditionCode"]
       error_message = note["Condition"]["ConditionData"].strip
-      Dhl::GetQuote::Upstream::ConditionError.new(error_code, error_message)
+      Dhl::Shipment::Upstream::ConditionError.new(error_code, error_message)
     end
   end
 

@@ -1,10 +1,10 @@
 class Dhl
-  class GetQuote
+  class Shipment
     VERSION = "0.5.4"
 
     PostInstallMessage = <<EOS
 
-*** NOTE Dhl-GetQuote ***
+*** NOTE Dhl-Shipment ***
 
 This version introduces the following changes from 0.5.3:
 

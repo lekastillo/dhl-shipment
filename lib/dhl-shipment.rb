@@ -1,16 +1,16 @@
 require 'date'
 
-require "dhl/get_shipment/version"
-require "dhl/get_shipment/helper"
-require "dhl/get_shipment/errors"
-require "dhl/get_shipment/request"
-require "dhl/get_shipment/response"
-require "dhl/get_shipment/piece"
-require "dhl/get_shipment/market_service"
-require "dhl/get_shipment/shipping_service"
+require "dhl/shipment/version"
+require "dhl/shipment/helper"
+require "dhl/shipment/errors"
+require "dhl/shipment/request"
+require "dhl/shipment/response"
+require "dhl/shipment/piece"
+require "dhl/shipment/market_service"
+require "dhl/shipment/shipping_service"
 
 class Dhl
-  class GetShipment
+  class Shipment
 
     DIMENSIONS_UNIT_CODES = { :centimeters => "CM", :inches => "IN" }
     WEIGHT_UNIT_CODES = { :kilograms => "KG", :pounds => "LB" }
@@ -148,12 +148,12 @@ class Dhl
 
     def self.deprication_notice(meth, m)
       messages = {
-        :metric => "Method replaced by Dhl::GetShipment#metic_measurements!(). I am now setting your measurements to metric",
-        :us     => "Method replaced by Dhl::GetShipment#us_measurements!(). I am now setting your measurements to US customary",
+        :metric => "Method replaced by Dhl::Shipment#metic_measurements!(). I am now setting your measurements to metric",
+        :us     => "Method replaced by Dhl::Shipment#us_measurements!(). I am now setting your measurements to US customary",
       }
       puts "!!!! Method \"##{meth}()\" is depricated. #{messages[m.to_sym]}."
     end
   end
 end
 
-Dhl::GetShipment.set_defaults
+Dhl::Shipment.set_defaults

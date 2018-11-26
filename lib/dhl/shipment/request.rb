@@ -3,7 +3,7 @@ require 'httparty'
 require 'erb'
 require 'set'
 
-class Dhl::GetQuote::Request
+class Dhl::Shipment::Request
   attr_reader :site_id, :password, :from_country_code, :from_postal_code, :to_country_code, :to_postal_code, :duty
   attr_accessor :pieces
 
@@ -13,14 +13,14 @@ class Dhl::GetQuote::Request
   }
 
   def initialize(options = {})
-    @test_mode = !!options[:test_mode] || Dhl::GetQuote.test_mode?
+    @test_mode = !!options[:test_mode] || Dhl::Shipment.test_mode?
 
-    @site_id = options[:site_id] || Dhl::GetQuote.site_id
-    @password = options[:password] || Dhl::GetQuote.password
+    @site_id = options[:site_id] || Dhl::Shipment.site_id
+    @password = options[:password] || Dhl::Shipment.password
 
     [ :site_id, :password ].each do |req|
       unless instance_variable_get("@#{req}").to_s.size > 0
-        raise Dhl::GetQuote::OptionsError, ":#{req} is a required option"
+        raise Dhl::Shipment::OptionsError, ":#{req} is a required option"
       end
     end
 
@@ -87,21 +87,21 @@ class Dhl::GetQuote::Request
   
 
   def dimensions_unit
-    @dimensions_unit ||= Dhl::GetQuote.dimensions_unit
+    @dimensions_unit ||= Dhl::Shipment.dimensions_unit
   end
 
   def weight_unit
-    @weight_unit ||= Dhl::GetQuote.weight_unit
+    @weight_unit ||= Dhl::Shipment.weight_unit
   end
 
   def metric_measurements!
-    @weight_unit = Dhl::GetQuote::WEIGHT_UNIT_CODES[:kilograms]
-    @dimensions_unit = Dhl::GetQuote::DIMENSIONS_UNIT_CODES[:centimeters]
+    @weight_unit = Dhl::Shipment::WEIGHT_UNIT_CODES[:kilograms]
+    @dimensions_unit = Dhl::Shipment::DIMENSIONS_UNIT_CODES[:centimeters]
   end
 
   def us_measurements!
-    @weight_unit = Dhl::GetQuote::WEIGHT_UNIT_CODES[:pounds]
-    @dimensions_unit = Dhl::GetQuote::DIMENSIONS_UNIT_CODES[:inches]
+    @weight_unit = Dhl::Shipment::WEIGHT_UNIT_CODES[:pounds]
+    @dimensions_unit = Dhl::Shipment::DIMENSIONS_UNIT_CODES[:inches]
   end
 
   def centimeters!
@@ -124,12 +124,12 @@ class Dhl::GetQuote::Request
   end
 
   def centimeters?
-    dimensions_unit == Dhl::GetQuote::DIMENSIONS_UNIT_CODES[:centimeters]
+    dimensions_unit == Dhl::Shipment::DIMENSIONS_UNIT_CODES[:centimeters]
   end
   alias :centimetres? :centimeters?
 
   def inches?
-    dimensions_unit == Dhl::GetQuote::DIMENSIONS_UNIT_CODES[:inches]
+    dimensions_unit == Dhl::Shipment::DIMENSIONS_UNIT_CODES[:inches]
   end
 
   def kilograms!
@@ -144,11 +144,11 @@ class Dhl::GetQuote::Request
   end
 
   def pounds?
-    weight_unit == Dhl::GetQuote::WEIGHT_UNIT_CODES[:pounds]
+    weight_unit == Dhl::Shipment::WEIGHT_UNIT_CODES[:pounds]
   end
 
   def kilograms?
-    weight_unit == Dhl::GetQuote::WEIGHT_UNIT_CODES[:kilograms]
+    weight_unit == Dhl::Shipment::WEIGHT_UNIT_CODES[:kilograms]
   end
   alias :kilogrammes? :kilograms?
 
@@ -182,7 +182,7 @@ class Dhl::GetQuote::Request
       :headers => { 'Content-Type' => 'application/xml' }
     ).response
 
-    return Dhl::GetQuote::Response.new(response.body)
+    return Dhl::Shipment::Response.new(response.body)
   rescue Exception => e
     request_xml = if @to_xml.to_s.size>0
       @to_xml
@@ -227,28 +227,28 @@ protected
   end
 
   def validate!
-    raise Dhl::GetQuote::FromNotSetError, "#from() is not set" unless (@from_country_code && @from_postal_code)
-    raise Dhl::GetQuote::ToNotSetError, "#to() is not set" unless (@to_country_code && @to_postal_code)
+    raise Dhl::Shipment::FromNotSetError, "#from() is not set" unless (@from_country_code && @from_postal_code)
+    raise Dhl::Shipment::ToNotSetError, "#to() is not set" unless (@to_country_code && @to_postal_code)
     validate_pieces!
   end
 
   def validate_pieces!
     pieces.each do |piece|
-      klass_name = "Dhl::GetQuote::Piece"
+      klass_name = "Dhl::Shipment::Piece"
       if piece.class.to_s != klass_name
-        raise Dhl::GetQuote::PieceError, "entry in #pieces is not a #{klass_name} object!"
+        raise Dhl::Shipment::PieceError, "entry in #pieces is not a #{klass_name} object!"
       end
     end
   end
 
   def validate_country_code!(country_code)
     unless country_code =~ /^[A-Z]{2}$/
-      raise Dhl::GetQuote::CountryCodeError, 'country code must be upper-case, two letters (A-Z)'
+      raise Dhl::Shipment::CountryCodeError, 'country code must be upper-case, two letters (A-Z)'
     end
   end
 
   def xml_template_path
-    spec = Gem::Specification.find_by_name("dhl-get_quote")
+    spec = Gem::Specification.find_by_name("dhl-shipment")
     gem_root = spec.gem_dir
     gem_root + "/tpl/request.xml.erb"
   end
@@ -257,8 +257,8 @@ private
 
   def deprication_notice(meth, m)
     messages = {
-      :metric => "Method replaced by Dhl::GetQuote::Request#metic_measurements!(). I am now setting your measurements to metric",
-      :us     => "Method replaced by Dhl::GetQuote::Request#us_measurements!(). I am now setting your measurements to US customary",
+      :metric => "Method replaced by Dhl::Shipment::Request#metic_measurements!(). I am now setting your measurements to metric",
+      :us     => "Method replaced by Dhl::Shipment::Request#us_measurements!(). I am now setting your measurements to US customary",
     }
     puts "!!!! Method \"##{meth}()\" is depricated. #{messages[m.to_sym]}."
   end
@@ -282,7 +282,7 @@ private
   end
 
   def log(msg, level)
-    Dhl::GetQuote.log(msg, level)
+    Dhl::Shipment.log(msg, level)
   end
 
 end

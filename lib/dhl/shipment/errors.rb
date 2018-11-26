@@ -1,4 +1,4 @@
-class Dhl::GetQuote
+class Dhl::Shipment
   class InputError < StandardError
     def log_level; :verbose; end # by default we won't log these
   end

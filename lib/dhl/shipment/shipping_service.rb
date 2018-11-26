@@ -1,5 +1,5 @@
-class Dhl::GetQuote::ShippingService
-  include Dhl::GetQuote::Helper
+class Dhl::Shipment::ShippingService
+  include Dhl::Shipment::Helper
 
   def initialize(options)
     @options = {}

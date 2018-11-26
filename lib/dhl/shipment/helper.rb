@@ -1,4 +1,4 @@
-module Dhl::GetQuote::Helper
+module Dhl::Shipment::Helper
   def underscore(camel_cased_word)
     self.class.underscore(camel_cased_word)
   end

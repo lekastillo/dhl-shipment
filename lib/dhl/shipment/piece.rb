@@ -1,4 +1,4 @@
-class Dhl::GetQuote::Piece
+class Dhl::Shipment::Piece
   attr_accessor :piece_id
 
   def initialize(options = {})
@@ -9,7 +9,7 @@ class Dhl::GetQuote::Piece
     if options[:weight] && options[:weight] > 0
       @weight = options[:weight]
     else
-      raise Dhl::GetQuote::OptionsError, required_option_error_message(:weight)
+      raise Dhl::Shipment::OptionsError, required_option_error_message(:weight)
     end
 
     if options[:width] || options[:height] || options[:depth]
@@ -17,7 +17,7 @@ class Dhl::GetQuote::Piece
         if options[req].to_f > 0.0
           instance_variable_set("@#{req}", options[req].to_f)
         else
-          raise Dhl::GetQuote::OptionsError, required_option_error_message(req)
+          raise Dhl::Shipment::OptionsError, required_option_error_message(req)
         end
       end
     end
@@ -54,6 +54,6 @@ eos
 private
 
   def required_option_error_message(field)
-    ":#{field} is a required for Dhl::GetQuote::Piece. Must be nonzero integer or float."
+    ":#{field} is a required for Dhl::Shipment::Piece. Must be nonzero integer or float."
   end
 end
