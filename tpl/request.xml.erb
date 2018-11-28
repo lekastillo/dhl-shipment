@@ -1,3 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<req:ShipmentRequest xmlns:req="http://www.dhl.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" schemaVersion="6.2" xsi:schemaLocation="http://www.dhl.com ship-val-global-req.xsd">
+	<Request>
+		<ServiceHeader>
+			<MessageTime><%= @shipment_time %></MessageTime>
+			<MessageReference><%= @shipment_reference %></MessageReference>
+            <SiteID><%= @site_id %></SiteID>
+            <Password><%= @password %></Password>
+		</ServiceHeader>
+        <MetaData>
+			<SoftwareName>Movipost WebSite</SoftwareName>
+			<SoftwareVersion>0.5</SoftwareVersion>
+		</MetaData>
+	</Request>
+	<RegionCode>AM</RegionCode>
+    <NewShipper>Y</NewShipper>
+	<LanguageCode><%= @language %></LanguageCode>
+	<PiecesEnabled>Y</PiecesEnabled>
+    <Billing>
+		<ShipperAccountNumber><%= @shipper_dhl_account %></ShipperAccountNumber>
+		<ShippingPaymentType><%= @shipping_payment_type %></ShippingPaymentType>
+		<BillingAccountNumber><%= @billing_dhl_account %></BillingAccountNumber>
+		<DutyPaymentType><%= @shipping_payment_type %></DutyPaymentType>
+	</Billing>
+
+    <Consignee>
+		<CompanyName>IBM Bruse Private Limited Company Name</CompanyName>
+		<AddressLine>9 Business Park Central 1</AddressLine>
+		<AddressLine>3th Floor</AddressLine>		 
+		<AddressLine>The IBM Place</AddressLine>
+		<City>Brussels</City>
+		<PostalCode>1060</PostalCode>
+		<CountryCode>BE</CountryCode>
+		<CountryName>Belgium</CountryName>
+		<Contact>
+			<PersonName>Mrs Orlander</PersonName>
+			<PhoneNumber>506-851-2271</PhoneNumber>
+			<PhoneExtension>7862</PhoneExtension>
+			<FaxNumber>506-851-7403</FaxNumber>
+			<Telex>506-851-7121</Telex>
+			<Email>c_orlander@gc.ca</Email>
+		</Contact>
+	</Consignee>
+    <Commodity>
+		<CommodityCode>cc</CommodityCode>
+		<CommodityName>cn</CommodityName>
+	</Commodity>
+
+    <Dutiable>
+		<DeclaredValue>100.00</DeclaredValue>
+		<DeclaredCurrency>USD</DeclaredCurrency>
+		<ScheduleB>3002905110</ScheduleB>
+		<ExportLicense>D123456</ExportLicense>
+		<ShipperEIN>112233445566</ShipperEIN>
+		<ShipperIDType>S</ShipperIDType>
+		<ImportLicense>ImportLic</ImportLicense>
+		<ConsigneeEIN>ConEIN2123</ConsigneeEIN>
+		<TermsOfTrade>DAP</TermsOfTrade>
+	</Dutiable>
+
+    <Reference>
+		<ReferenceID><%= @reference_id %></ReferenceID>
+		<!--<ReferenceType></ReferenceType>-->
+	</Reference>
+
+    <ShipmentDetails>
+		<NumberOfPieces>1</NumberOfPieces>
+		<Pieces>
+			<Piece>
+				<PieceID>1</PieceID>
+				<PackageType>EE</PackageType>
+				<Weight>2</Weight>
+				<DimWeight>1.0</DimWeight>
+				<Width>2</Width>
+				<Height>2</Height>
+				<Depth>2</Depth>
+			</Piece>		
+		</Pieces>
+		<Weight>20</Weight>
+		<WeightUnit>K</WeightUnit>
+		<GlobalProductCode>P</GlobalProductCode>
+		<LocalProductCode>P</LocalProductCode>
+		<Date>2018-03-06</Date>
+		<Contents>For testing only. Please do not ship</Contents>
+		<DoorTo>DD</DoorTo>
+		<DimensionUnit>C</DimensionUnit>
+		<PackageType>EE</PackageType>
+		<IsDutiable>Y</IsDutiable>
+		<CurrencyCode>GBP</CurrencyCode>
+	</ShipmentDetails>
+
+	<Shipper>
+		<ShipperID>751008818</ShipperID>
+		<CompanyName>IBM Corporation</CompanyName>
+		<RegisteredAccount>123456789</RegisteredAccount>
+		<AddressLine>1 New Orchard Road</AddressLine>
+		<AddressLine>Armonk</AddressLine>
+		<City>New York</City>
+		<Division>ny</Division>
+		<DivisionCode>ny</DivisionCode>
+		<PostalCode>10504</PostalCode>
+		<CountryCode>US</CountryCode>
+		<CountryName>United States Of America</CountryName>
+		<Contact>
+			<PersonName>Mr peter</PersonName>
+			<PhoneNumber>1 905 8613402</PhoneNumber>
+			<PhoneExtension>3403</PhoneExtension>
+			<FaxNumber>1 905 8613411</FaxNumber>
+			<Telex>1245</Telex>
+			<Email>test@email.com</Email>
+		</Contact>
+	</Shipper>
+
+    <SpecialService>
+		<SpecialServiceType>WY</SpecialServiceType>
+	</SpecialService>
+	<Place>
+		<ResidenceOrBusiness>B</ResidenceOrBusiness>
+		<CompanyName>ixyz industry</CompanyName>
+		<AddressLine>123..9878</AddressLine>
+		<AddressLine>utnh ytrr</AddressLine>
+		<City>redwood city</City>
+		<CountryCode>GB</CountryCode>
+		<DivisionCode>ca</DivisionCode>
+		<Division>ca</Division>
+		<PostalCode>WC1E 7HU</PostalCode>
+	</Place>	
+	<EProcShip>N</EProcShip>
+    <LabelImageFormat>PDF</LabelImageFormat>
+	<RequestArchiveDoc>Y</RequestArchiveDoc>
+	<Label>
+		<LabelTemplate>8X4_A4_PDF</LabelTemplate>
+		<Logo>Y</Logo>
+		<CustomerLogo>
+			<LogoImage>R0lGODlhAAQAA8QAANLlnLzXa+nyzvr886vNRcfehN3rtfT557bUXrDRUu7129joqc3hkOPvwsHbd7vXaqrNRejxzfn78sbdg7XTXvP45u712dLknN3rtMHadtfnqLDQUczhj+LuwaXKOf///yH5BAAAAAAALAAAAAAABAADAAX/4CeOZGmeaKqubOu+cCzPdG3feK7vfO//wKBwSCwaj8ikcslsOp/QqHRKrVqv2Kx2y+16v+CweEwum8/otHrNbrvf8Lh8Tq/b7/i8fs/v+/+AgYKDhIWGh4iJiouMjY6PkJGSk5SVlpeYmZqbnJ2en6ChoqOkpaanqKmqq6ytrq+wsbKztLW2t7i5uru8vb6/wMHCw8TFxsfIycrLzM3Oz9DR0tPU1dbX2Nna29zd3t/g4eLj5OXm5+jp6uvs7e7v8PHy8/T19vf4+fr7/P3+/wADChxIsKDBgwgTKlzIsKHDhxAjSpxIsaLFixgzatzIsaPHjyBDihxJsqTJkyhT/6pcybKly5cwY8qcSbOmzZs4c+rcybOnz59AgwodSrSo0aNIkypdyrSp06dQo0qdSrWq1atYs2rdyrWr169gw4odS7as2bNo06pdy7at27dw48qdS7eu3bt48+rdy7ev37+AAwseTLiw4cNJBQBYoCDfgQYAGgxATHlNgwQeMnsI0JjeAAaaMzOoTLqMgdCaCXSWFwB1ZgelY38ZQMB15gDzTtv2YEC2by26d/eGR3u3BwS/k1sBYNxDgnjMmyufLiW68QXvDtSWTr17kwXNPRCY3K5AeOTe0yc5EN4DgHbsw79XT98I6PAH2LVunoB8/f9BFNdcAesI0N5wACb4g/91xq12zn7GPafghD5g1hxu6ARnnAAUdriDhrtxeI6FxmHo4Yk3IHDeOQyGiOKLNRgYHoLiCGgcgTDmKAOEu/VHTou25afjkC4o0N584cTXHJJENqmCec2NJw6Uxknp5JUoaBfeaOAYKR+WYJ4ApGtCesOjbRKGqaYINu6GYzcyNkfjmmGCF56I3JC4G3p00qmnbSZqA6JtePap5qCuNbDNAH+6Fqihap7pWprYjIlamZCqGadxc1LTpm1vZrqmpKhZac19VWIqaphKGsfkNK3u9uqqYVK5m6nTOBAerrSG+alroUaz6W7Y9dqnpaGp+gypoVFqrJq/ovaoMw0c+Kz/oYiiVqgzjUp7LaTdhjbtMtmGtu23YVY74zPRhgYbuoYyq5mzyiCrmbLwgjmsbcUuo+WA+UJqq228zibAwQAkDEABATTs8MMQN+yAwpEdjK8XA7tWcMBgxmrbrFUcIIABADDQcHsop4xAAAUsJoCDV3jsGsgcg4mqcRczMTIAAaiY8s9ARxgAAwsI4F8U8ma2cc1YtqtZsOtBFkC4QVdtdalDGwBzEvu61inTYdqb2dZCDCD1dlenrTbKQzeQMxBJOwc2pIyGN24PBxhQgM9r9+03ygk4wBgR5Wp27txhFp7Z4TgMoDfVf0cueamCv20D5Jshninfe/IgAAOcTy76/+gRFiDZDnY2x7jmWHaN2tcwOF4A2qTXbvtuld/gdGZQsx5peD7K4Liutxdv/J4LWJ6C2B4o7zuRXi4ZuwHEH2/99aEhkDwMMqPG5fOGZlzq0SlQj/356GuGgAHkoyB+aEuDj2X3oX1/ggKzp6+//g4omkL0rpJfppinrAEsAHP7S+DtEgAAfMWNXgKEFu1ARQL8KfCCCuwfCVwXGthFEEyp29AHDBA6DJoQfQycTAlRw6cPGgpzCZjgCWeIPgLEzQOrcyGWFEfDHvpQM3fTYZhu+MMimpBsQgwTB43IxAv2Lom/a6IUTUgA50FxSAcg4hS3uMAcXhGL7+OiGK8XAP8vfvFEnxmjGjNoxTMCCAAyXKMcsceA9rlxQgJA4Bz3aDsC9OuOCsoiHwe5PwSYEZC/GQDzCMlI2xXAjohMTh4bScn0+TGS1BlA9SrJSexxBpO/aUAcO0nK4tEMlITRZClXeT4EIBGVgBElK2eJvVPCci+qpKUurefKWwJGAKPcpTBFd0lf8uVmw0ym7RwASWPC5QArVKY0J0eAQzoTLbKcpjZtZ8trogWZ2wzn5ALQTG+SZQDRFKc6+5aAV5ozLAoI5jrnqTYPvtMrPKSnPqv2xHtyJYz7DKjVyOnPrwxAiwJNaHt6WdCtQFOhEO2bahqalXhG9KJrsydFmZJNjHr/1Gp/3OhT8vnRklJQpCM1qUr5idKmAHSlMHVUOVv6k5fG9KbqmylNd2JTnPoUATrd6U166tOfBlWoMyFqUY2K1J4odalMbWpOngrVqEq1JlStqlWvGpOsavWnXJVJCL9KVjeF9SUkLatW+3nWkahLrXCVVVtTYtG42tVrczXJv+7KV834L68hQWdfB6s0dwL2IgglLFSDd1iOeFWxYG3sRtIK2bVKNiMArCxhQ3rZiOxOs3E1bGcTklj9UeABqH0ABUAbng2kFrVNjN9oEQLOGWagAxI4QQcmAAHWauYBGKjACSzAgd7+MIizNchbezgB4a5AAhdg7QMi0AINGLeH/91MbkD2OkMIUPcFFlitYiGgARhIIAM/tKZ2+VFa61EgtzE4L2EhYIEZTMCHsl1vPxaJvvfW4AF9pW8N7ttD5Op3H5k1IQScSwMJiNeu360BenvI2QPzo2497AAOLHBXDuBAAtc94UQt/I/aXvABOiCwWiEA3xtgwIctJLE+lpjACN+gAnG9wA424MPsyvgdGKbhBngw4bK2GAfR9aFof9wOE1/Qwzt4cVlRvAMcw5jJ96BxjXlgZbLqmAchnqGPsYwOPervyDlQq41zAGD8tpHM4+Cv/nzQ5q+uGQccKKKB4VwO+pmQzmW98w2S/MO/8nkd7T0foMkqaBsQ2oeMPf80Opb7Qx88WKuNljATxyzpPDWxvjxQKwZ6UOcivrnT15BzAke9Aw6XFco7kOK7UD2Oz5pwAjzQgFqHvIMOTFG9tKbGY9HH4h3DNdMyUDETYxxsbvi5h1/GQQTiiuscdFmKGm02NTbZxGLj4NKBzoGymwhBbVtDyz3MAJLvSgFpjzHb5l6WGllNA1fftdo0qECYpZjfeDcD3T+kdwwssG+44ju+4N4ip/2NjESfUOAu6EDBqS2D8Mqx3wxHBsCNmAE0p0ACea4sBUBd3YkrPOPTcDgNIXABBp9AAtb1bXNXgAEe85EAKI9Ggvf4gAtEwLkViIAGiuzbzFDA56CWQAT/MMDbRsI758IYdtGnHiGoN+PZVM960J5u9V44Wetg/9meu94LW4f97CIkuzHGiva2o4ytaueFmd1O9+bFfRgbr7vbF353WXBb74BHTbn7jgusB77uhia8Lth++MbPWvG6mHvj0X5qyKdi55M/fIUtLwupZ77ozOa8LOT5+bovWfSooHTpG28/1MPC86tn7eBdrwrSx97tp6e9KFR/+8C3XveqgH3vNTt74JPC9sNHe+6NzwneJ1/vm2e+KL7+/LaHXvqikHz1s35U7GPC8NsPO9e9bwnGh5/ucCd/Jv5+frrjXP2iQH77tb58+EMC8/Nve/TtX/78H/7x/KcJ7Od//2j3fgG4CfJHgFNXeQeICOCngFM3fg2YCJQFgaz1exMoCdRngVR3fRn4CCrHgYT1gZYggnoHbCQ4CPhnglm3fymICBXIgpCFgS+oCKomg5A1djU4CCGIg3ZlgDvICNrng4TVfUHoB0TYdih4hHqwgknIWi7IhH+Qd084WHwnhXhwg1XIVzqIhXqwgVuoWF3ohXjQg2FIVmRoCGZ4hlqVhoXAhvTnhoMAh1m3hHL4Bg9Ih3aVeHe4B1Soh2p1hX3YBn8IiGQliIO4BjFoiF9Fg4lYB1rIiFo1ho/IBpEoiVBFiZWoBpeIiUWliZuIBsLniSsFiqFoBmtIiioFhKdIB/+pqIom1Yp38Iqw+FGyaAe0WIsYdYt1kIu6GFG86Iq/2FfBOAcmEzHImIzKuIzM2IzO+IzQGI3SOI3UWI3WeI3YmI3auI3WWIze+I3gGI7iOI7kWI7meI43IQALcIy2sTIMAABGg0kKQDINI0MJwDLwyIAopwA8YzUIwAB2yDQHsAAOkIDzYjqWdwAAMIQEwwD1ly8GlE5AQwAFEJCSJgADuDYBIIHXcgCjKHgcyWcC4IuCx4c145G3U0wMdwAZKTqfxDSKZD0JYJH6tQAG+TeIqCkMuTbM1GwHpT8MtQOKQTFEWZRGeZRImZRKuZRM2ZRO+ZRQGZVSOZVUWZVWeZX/WJmVS9kDaWRJJklmwJRABBCSyzOMfMUDD5VAOSlZi0g6jigDnWiWJbUDdZVBRthZcTk66ecCeSmXu5gDbVk7QEVmHyk5e8kCfemXwIgDgWk7g/ljYJg+h6kCiamYCsWYP/SYFtaYxjOZKFCZlilQN+CECqSZ6+V8MxSFlBmaZWUDdflDnnlW3FVEFgmarKlPNSBYTaSacyWRM4RxYnKbX1UDhVk8D9lUtmk8APgCySmc6kQDqAlpd4lUpNlDX7kCzemc4TQDZjdDb9lWJFk8wEkC2amd2jQDkUlDx9lSnLk/V1ie5ilNMpCHM2SKKLWTGHRq8BmfybQjckSTDdWe/wkUm/vJn8IUA9WpZ5KFnxg0nh9QoAaqSzFQnOgDoPcUnVPEmyIAoRE6S9zDR7EpUi05RcVXAhzaoasEAydaPNPZUANASLm3oijaSTDAoCekoSIloBj0neQ5oyv1AgnaRB6IVCO6RSU6AjLqo5TEnIykj/fUSKeXpErKSC/gm1xElu9UiEXEm1I6pYPkAi/KSCHqT13qSHzppbbYAlr6Q0cqoo00pD2Kpn+JmEt6VlYqRmcqpxflAhSqQBZqTJW0ZGWqp2rkAuG5P1h6TfQpRYc0qISKpy1wk020ls60pkUEb476qFvkApVEqcZkqT/kY5mqqVLEqZS0nEIFqj3WAv+jSqpMZKqNZJ/XpKrYxaquKposEKRbJKuV2qm2eqv7pKaVxKuf6qt0Cqy4yQK0SkPE6kvLKma/iqzzJKyU1Ky39KwnJKrSSk/UGqthha0mpK3buk7dykjWCkvgikHiOq7iVK6EdK6olK4XtK7suk3uOkjwCkryqkD0Wq/TdK98lK+YtK9qGa3++q/KOqzfaqzYebD2mrDVurCU1K8OO0wAu0cCG0kE654GW7EWC7HeylUbqz8U67ESCrLmKrGNVLIm66Eo+64qy0gs27Ip+rL4GrOENLM0S0oXO0cZi0gjmz46u7Oc1LNy9LOAFLToM7REW6croLTng7R3BLW11LH/TVtKRrtGUutGVHs9THu1hJS1arS1Z9S11vO1YMtHYjtGZPtFZns8aJu2c7S2YtS2V/S2xhO3crtGdMtFdgtFeGtKVru3jdS3u4qzg6S3hAupT6uwIsuwq7m4RWuzAYu4fKS4kjtFhjtFf5tEgXs7mJu5TbS5UtS5QvS53DS4oju3lIuxlrtHobu6RUS6TWS6OoS6tRO7sutDtMtEtutCuEs6uru7NNS7RvS7HxS8ozO8xHtCxqugjzuxqtu8XPS8x/W6c8S81HtB1utDyBtByis62ru9CdS9BYa9cjS+5Dtnreuz6LtG6ru+6GO+zPq+ahS/8os99Fuf9jtG+Ju//9azvyf0vQIUvpPzvwBsPAJsQgQsPwYsOQicwLezwBjUwODzwJETwRJcOxR8QRb8PBiMk9O7wcXbvkfbv2KkwSQsOh2sQB/sOyHsNyq8wpLTwgn0wqwTw30zwzT8Nza8PzisOTq8Njzcw33zw/oTxIgzxGpTxEasNkicPko8N0ycNk78xFcTxegzxWBTxVdzxVhcNVoctSjMRWAcxkAzxp5Uxid3rGjsvCastWw8RWf8xiijxmQ0x1JUx3YcHnhsPVzMNF5sNXzcx8bxx8cTyDUzyFVTyIZsG4hsPIrMMYwcNI78yKgRycUzyQFTyUBzyZisGZp8O5ycL578M6Acyv8eMMq2U8rwcsopk8qhzMq148roAssoI8uYTMukY8vfgstHMsKqXDy8PDq+fC3A/CVuPMyKFsdjq8eTKszMzMHOzLbQvGnSPM2jU8wuec1GpMuPzM3j5M1FBM6GLM6Sc8zPkszSs8zafDzoHDnqbCzsHEDu/M7EXM11S86hms34HDnx/Dfz3Cv1LFf3/M/U3LgRG70r688IfcT67Lf8vKoH/dAsHNGHy9Ay69AWnTYB7TcDTSsF/TEc3dFW89F9E9KrMtIzU9ImHTQorZETXasV/dJ+E9Nqo9KiwtKoYc59jNNpo9OZwtOh4dN2DNRXI9SQQtSaYdRvjNQDNdM05NT/aAzVVaPUhsLUmUHVYWzVQYPVfaLV7uHSNp0yXg00YE0nYs3VWHzWYifV0FrTZQ3FGM25cJ2tZD3XflzXpXvX4ZrXen3IfF27fq2ugB3YkDzYvlvY83rYiJ3Jin28jM2vjv3YohzZ0HtVa13Zlr3KmH29Gp2znG3Zbp0yab0mmy3XnW3Wn+29k12wqr3a7VHabPPaHBvbss0dCh2ymg25ZZnbWdza5xvaiTvaj03b7XHamuLbnwncwb3bKUvcl2vciI3cdmPbJEvdgW3dF4LdQqvdes3dJeLdSwvecy3eu6HcSsTcwencYizc9SvdsGveZY3egELe58PWT2zfjoLf/1WL2+4N2dANs/KdvfRt0/ztLQWevgf+0gkuLv7ttQ1u0g8ORBF+thPe0RV+GxcOtxlu0RueOQsOvx/+0CGu3vrC3ibQquEM3/w74vdb4gh94h2etzL+zzQO4/574/ic470tvQAe4Jc94Der4ynM4+/s41KV2g0r5D+j5E3F5JHr5Hfs4gNc44Ib5E4O5Ugl5b9N5bNt5QyM5aCL5NrM5amq4iYK5lVO5JVr5GZs5tOM5jvl5c3N5nvt5q4L523c5Hgu2HruvnxOx3LOzHROU3be3n++G4feUom+4osO6Cog1ijeOmoep5HuGo2OUo++5pmu6WJewWSeulou5JsuUv+djumfPuST7rg/3tClHuCnvlGpjqSrLuCtvtCvvtGx7t6zTlG1vqG3Hhq/3lDB/qDDzuopQOmjnruFPszFXlDHzuLnHOoe3OzC++yqHO3+NO3Jnhncfk/e/u3hnqWXbuvkbu0ujO3Lq+2zrO43zO7i6+67DO9ALO8HTO8tHugnPOh7rO/Vzu9y7O/R3OvOXe7mNO7JjvDepPDDzvCzeu7Cnu4C/8wEj80GD9wQ36tA7ucPb+9JjO8QDPA/DfJSLPIZTPJHbfJbjPIinPG5vfHF2vFT/vEVb80X/80q/9QsT8Y5X847X9U9v8Y/388wL9sy76wSj+wUn+u8veRLT+3/JX/z+1z0FO3xt5701xr13+7ZVC/RVk/TWL/qLRCmTx/lXN/0KuDqUE/zX27zK1BJPErrldSoXQ+rvM5VdR/0Xd0CdxrnYSWpTBRUUr/yLHCo+vOnvoT4NZSnC8/3auOk3pSefQ35+90COkpFbZX5hm35RlwkZy9Vi2pE1+npjx+peR9WNjpDR1X4PN8Cfao/63lPlG9EqHrnp88CnC+WeaWrRsR1ri/0ZU9IY9pQq49B3Rf8fe8CRcqogKX8QeOZ0H/5LoChUtSmNDX6NARs0//5NbpHONpSsQ/IMdD9PRwDu38+DtpS2m9Cpa/ocO8Cx5/dkjX+mwyXd4/+a7T+/9kPAoQ3kqV5oqm6sqPwwbE8x0B747m+873/A4PCIbFo5NGStMSxqVooo9IptWq9YrPaLbfr/YLD4jG5bD5zbc41qbBVs+PyOb1uv+ODW0F+iEADBgoOEhYaHiImKh4i9AERDLw5TlJWWl5iHnE5ZOa8LIKGio6SlpqeosoodN40pLHCxsrO0g5xDTDVlgCk9vr+AgcLD6Mt6LZ1wR0vMzc733XxLf8RV1tfY2drFxYcI0S+PouPk5fveBnrEhxst7u/w8dfDzTSQnopm+vv8zd/dddSIG8gwYIGD56hN4uAQHz9HkKM2AlMAFoGEGLMqHFjRgUiYDEEk08iyZImnf+AURjrIseWLl/CDKYgV6aQIk/izKnTRxiVnVjGDCp0KFFBPi3ZvLlzKdOmJMYAvEQAaNGqVq9inTKAk6VvY0Y6DSv2IRkGUhtmTat2LVGwdwqAE+N2LN26zso0+OgoQFy2fv8CPjizDwFXZebaTaw4lpkDFfvwCix5MuVtAxA7gXsG8+LOnh0V00snANrKpk+jTuV49KfNn1/DpgRogNk5Caimzq17NyIBj50EaI2Gc+zixm0FOhC1yW3ezp9DB6RctJACwgERP659ew5Cl2kOCYA7Ovny5rMYKEB9hwMDfQVl5y5/volDDQqA54FgAbvz/v8DKIUAADiQXwoEBAD/wHWFxEefg9wposACBdTTQgAMNPBegBtyuKEAAhgAgIgiLvDhKA0+mGJxoygA4ogjfqhhhzPSWCMpKKqYo2c28tijj1fhqKOQdv1YpJFHZhTkkEuGhaSTT0KZjZJMUrlTlFdimaUpU1bZpUlaghmmmPB5WaZiY6KZppqSmNnmWGvCGaecNbhZp1Nz4plnmFza2eddegIaKJJ8+lmoLoIimqiNhBraKGOKQhqpf4w6WikmkmKaqXOUWtrpJJqCGmplnHpaKjSiopqqWqSa2qocqsIaa1uu0lqLrLfiyhGrtfJKRK6/AkvQrr0S+0OwxyKrzbDFMqtDss9CG8yyzVLL/0K012JbyrTVcmtCANmCGy4iBnRbbhzfipuuumdIY667RqC7rrzzRvOuvUQ4QK+++1oxwL3/AhEZvwMTLAPAB/MARcELD/wbwg+vsCDDE6e7HMQXmyAjxRtjmw7GH4+QAMcji7sKyCC7QbLK2K538sHjrRwzsBa7fLDGMuMcawM1Q0xNzj/n2jLP7ioMtNGx0jy0uzcf3bSkJittb8pOUx1qhVGbK3HVWydKLtbmxsu12JAa+DWzWo+dNp5em01t2GrDrafDbROLdtx3p9ku3b1Ojbffcda2d633/F34mrgIXqthhjOOpt6Je5pv45OPuS3k3CXANOWbI8nV5Y4mxf+56FEe9bmfi4+e+pOlm+4mzKrD/qNHrdv5euy38zgY7WbajrvvNLK++5C9/148h1sJzyQBdhvf/IaWJ78TAqU5Xz2NAggdvXYMaG699+chr718CTD/vfnnCVC2+J8B0P3575e3QPbr11VAf/Dj3+EAC6hPf1j25y+ANTKA5/znlAQA4H4CXGCHDrCAuRnQJAlgAPUYaEH9NYABEIygPhBQgAVU8IIirNEBXPSiE6IwhSoUEUlW6MIXwvCFG9RHAWJoQxQKIIQj3CGiSIIK6PWhfDwcYrJ8eAog5kGIRFzir4y4JYkokYlSjJUTtQXFKWKxiBL54RWz6MUmbvGIXfz/IhmpGMYnRiSKZVyjoKp4ozGyMY6ZcuOJ4CjHOyqKjqJAIh7UiMc/okmPoeDjHfwIyENqSZCgIKQdDInIR0JJkYtgZB0cCclLGkmSiqAkHSyJyU/ySJOJ4OQcPAnKU3ZIlIggpRxMicpX/keVh2BlHFwJy1uSR5aGoCUbbInLX/JGlwyyIzCLmcozWjGNxlzmjIRJCF6uwZfMnCZgnDkIaDpBmtTcplqsSSZlcjOc0PFmILDZBG2KM51DISd2iKnOd06GncNxJzzr6Rd5ugac9tznX/BpBnMeAZ38HChB/HkYehI0oUIxKBkAagSBKjSi2mDoVxAq0YtqhKJysShG/ztqEI2GwaFFgKhHS9oLkCoFIiQ1KUtLgdIviJQIK20pTUHxUofos6Y6bcdNk8HRnQIVGD0Nh0qDatRrDJVNRT0qU4WRVC3EdAgzbSpVwfDULERVCFOtKle3cFUsZDUIW+0qWa3w1SuEFQhjLStbo3BWK6T1B2ttK10Nhsw35rSuegXEW6sQVx/Mda9t7SsV/tqDwAq2rISdgmF5gNjEdnWxUmjsDh4L2apKNgqU1YFlL9vUzCphs57wLGm/ANokiBYHnS1tUE9Lg9TeYLWs3alrZwDbFsh2tjWtrQxuy4Lc6ralvKVTXoNrXBoMFwa+jdhxm5uE5H5guSoArnMxCv9d6aaAutWV6HV/ul3Pdre439VteJc63uOW9yHaPe9A09uP9bJ3n+7lB3zjW8/57qO+9n0nfvWh3/2ms7/m+C+AwyngchC4wNs8MDkSrOBpMngcDn7wMiMsjglTuJgWfgaGM/zLDTujwx6+JYibIeIRv7LEzDgxik+p4mWwuMWffPExYizjS9JYFza+8SNzXIsd8/iQPqYFkIP8xyHPoshGviOSZaHkJcexybF4MpTXKGVYULnKZLwyK7KsZS9yuRNe/jIWw5yJMZNZijM0BxfFm2adrpkcb6ujm99M0ziPY86i8BhZ7HzUwPVDcqZ4HD/8fFTsnkBgpYBaP3xm6J3/ElofxFNERAT9aJ0eICI6DAWen6HoS9d0fuLoBaDzC2qgFlAfeh4F2/jhvlNHtNX6KNop/NVoWO800/1Q4CmuZg5a47qlviaHyHzBZ3PwOtgmPTY5gH0KXXdQ2Tq1tT6SfYpUj2PS0o5o0pzRt17szByE23ZLod1gYfRvGZ8mt0m7vYxVo0LWzhg3u1lqbg4TI921WHe9S+ruWnwbGJE+Br37bdIBiDoW67AGto+hbYMrNNzNcHYwDpBwVsAb4h1t+Cwy/gt528PaGvco4gj+6lT8mxWoG3lLGU1kyww7FgxgOVBBzoqH/8LitfA4zTvK7E4EPBuzk4VXeg7UlE8i/+jaGDorim50oJb6EkrfBtMx4fSn17wT/H5H1StxdawDNS9IwTk2DhDzPEwd7DVVwNnrML2MDADpcZiK2rka9TpwjyNiz8Pb685VAbTdCeR7SdzvQICt+52pBrh4EA4vFN/QAYCJZ+tlGM+Dw58cIZBfg+QnX1cDBF4/ZN+IAOSeAwSK3PNsdWDoWYAABqS+KAMg4CMKsHLVQ3YAGez0CC5kgNinZUAB0PcIPAhC3Dt3AB9awItKJIDM++VDIXrRhzaN/OtjP/va3z73u+/974M//OIfP/nLb/7zoz/96l8/+9vv/vfDP/7ynz/962//++M///rfP//77///A2AACm3gABJgARrgASJgAirgAjJgAzrgA0JgBErgBFJgBVrgBWJgBmrgBnJgB3rgB4JgCIrgCJJgCZrgCaJgCqrgCrJgC7rgC8JgDMrgDNJgDdrgDeJgDurgDvJgD/rgDwJhEArhEBJhERrhESIhDYQAADs=</LogoImage>
+			<LogoImageFormat>GIF</LogoImageFormat>
+		</CustomerLogo>
+	</Label>
+
+</req:ShipmentRequest>
+
 <?xml version="1.0" encoding="UTF-8"?>
 <p:DCTRequest xmlns:p="http://www.dhl.com" xmlns:p1="http://www.dhl.com/datatypes" xmlns:p2="http://www.dhl.com/DCTRequestdatatypes"  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.dhl.com DCT-req.xsd ">
     <GetQuote>
