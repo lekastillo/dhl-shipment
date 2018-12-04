@@ -12,10 +12,21 @@
 			<SoftwareVersion>0.5</SoftwareVersion>
 		</MetaData>
 	</Request>
+
 	<RegionCode>AM</RegionCode>
+
+	<%- if requested_pickup_ime? %>
+		<RequestedPickupTime>Y</RequestedPickupTime>
+    <% else %>
+		<RequestedPickupTime>N</RequestedPickupTime>
+    <% end %>
+
     <NewShipper>Y</NewShipper>
 	<LanguageCode><%= @language %></LanguageCode>
+
+
 	<PiecesEnabled>Y</PiecesEnabled>
+
     <Billing>
 		<ShipperAccountNumber><%= @shipper_dhl_account %></ShipperAccountNumber>
 		<ShippingPaymentType><%= @shipping_payment_type %></ShippingPaymentType>
@@ -24,23 +35,51 @@
 	</Billing>
 
     <Consignee>
-		<CompanyName>IBM Bruse Private Limited Company Name</CompanyName>
-		<AddressLine>9 Business Park Central 1</AddressLine>
-		<AddressLine>3th Floor</AddressLine>		 
-		<AddressLine>The IBM Place</AddressLine>
-		<City>Brussels</City>
-		<PostalCode>1060</PostalCode>
-		<CountryCode>BE</CountryCode>
-		<CountryName>Belgium</CountryName>
+		<CompanyName><%= @consignee[:company_name] %></CompanyName>
+		
+		<%- if @consignee[:suit_department_name].present? %>
+			<SuiteDepartmentName><%= @consignee[:suit_department_name] %></SuiteDepartmentName>
+		<% end %>
+		
+		<AddressLine><%= @consignee[:address_line1] %></AddressLine>
+		
+		<%- if @consignee[:address_line2].present? %>
+			<AddressLine><%= @consignee[:address_line2] %></AddressLine>
+		<% end %>
+
+		<%- if @consignee[:address_line3].present? %>
+			<AddressLine><%= @consignee[:address_line3] %></AddressLine>
+		<% end %>
+
+		<City><%= @consignee[:city] %></City>
+		<City><%= @consignee[:suburb] %></City>
+
+		<%- if @consignee[:postal_code].present? %>
+			<PostalCode><%= @consignee[:postal_code] %></PostalCode>
+		<% end >
+
+		<Division><%= @consignee[:division] %></Division>
+
+		<CountryCode><%= @consignee[:country_code] %></CountryCode>
+		<CountryName><%= @consignee[:country_name] %></CountryName>
+
 		<Contact>
-			<PersonName>Mrs Orlander</PersonName>
-			<PhoneNumber>506-851-2271</PhoneNumber>
-			<PhoneExtension>7862</PhoneExtension>
-			<FaxNumber>506-851-7403</FaxNumber>
-			<Telex>506-851-7121</Telex>
-			<Email>c_orlander@gc.ca</Email>
+			<PersonName><%= @consignee[:person_name] %></PersonName>
+			<PhoneNumber><%= @consignee[:phone_number] %></PhoneNumber>
+			<%- if @consignee[:phone_extension]%>
+				<PhoneExtension><%= @consignee[:phone_extension] %></PhoneExtension>
+			<% end %>
+			<%- if @consignee[:fax_number]%>
+				<FaxNumber><%= @consignee[:phone_extension] %></FaxNumber>
+			<% end %>
+
+			<Email><%= @consignee[:email] %></Email>
+			<%- if @consignee[:mobile_phone_number]%>
+				<MobilePhoneNumber><%= @consignee[:mobile_phone_number] %></MobilePhoneNumber>
+			<% end %>
 		</Contact>
 	</Consignee>
+
     <Commodity>
 		<CommodityCode>cc</CommodityCode>
 		<CommodityName>cn</CommodityName>
@@ -90,7 +129,7 @@
 	</ShipmentDetails>
 
 	<Shipper>
-		<ShipperID>751008818</ShipperID>
+		
 		<CompanyName>IBM Corporation</CompanyName>
 		<RegisteredAccount>123456789</RegisteredAccount>
 		<AddressLine>1 New Orchard Road</AddressLine>
@@ -110,10 +149,57 @@
 			<Email>test@email.com</Email>
 		</Contact>
 	</Shipper>
+	<Shipper>
+		<ShipperID>751008818</ShipperID>
+		<CompanyName><%= @consignee[:company_name] %></CompanyName>
+		
+		<%- if @consignee[:suit_department_name].present? %>
+			<SuiteDepartmentName><%= @consignee[:suit_department_name] %></SuiteDepartmentName>
+		<% end %>
+		
+		<AddressLine><%= @consignee[:address_line1] %></AddressLine>
+		
+		<%- if @consignee[:address_line2].present? %>
+			<AddressLine><%= @consignee[:address_line2] %></AddressLine>
+		<% end %>
+
+		<%- if @consignee[:address_line3].present? %>
+			<AddressLine><%= @consignee[:address_line3] %></AddressLine>
+		<% end %>
+
+		<City><%= @consignee[:city] %></City>
+		<City><%= @consignee[:suburb] %></City>
+
+		<%- if @consignee[:postal_code].present? %>
+			<PostalCode><%= @consignee[:postal_code] %></PostalCode>
+		<% end >
+
+		<Division><%= @consignee[:division] %></Division>
+
+		<CountryCode><%= @consignee[:country_code] %></CountryCode>
+		<CountryName><%= @consignee[:country_name] %></CountryName>
+
+		<Contact>
+			<PersonName><%= @consignee[:person_name] %></PersonName>
+			<PhoneNumber><%= @consignee[:phone_number] %></PhoneNumber>
+			<%- if @consignee[:phone_extension]%>
+				<PhoneExtension><%= @consignee[:phone_extension] %></PhoneExtension>
+			<% end %>
+			<%- if @consignee[:fax_number]%>
+				<FaxNumber><%= @consignee[:phone_extension] %></FaxNumber>
+			<% end %>
+
+			<Email><%= @consignee[:email] %></Email>
+			<%- if @consignee[:mobile_phone_number]%>
+				<MobilePhoneNumber><%= @consignee[:mobile_phone_number] %></MobilePhoneNumber>
+			<% end %>
+		</Contact>
+	</Shipper>
 
     <SpecialService>
 		<SpecialServiceType>WY</SpecialServiceType>
 	</SpecialService>
+
 	<Place>
 		<ResidenceOrBusiness>B</ResidenceOrBusiness>
 		<CompanyName>ixyz industry</CompanyName>
@@ -124,10 +210,14 @@
 		<DivisionCode>ca</DivisionCode>
 		<Division>ca</Division>
 		<PostalCode>WC1E 7HU</PostalCode>
-	</Place>	
+	</Place>
+
 	<EProcShip>N</EProcShip>
+
     <LabelImageFormat>PDF</LabelImageFormat>
+
 	<RequestArchiveDoc>Y</RequestArchiveDoc>
+
 	<Label>
 		<LabelTemplate>8X4_A4_PDF</LabelTemplate>
 		<Logo>Y</Logo>
