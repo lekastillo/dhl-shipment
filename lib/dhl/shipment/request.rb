@@ -69,7 +69,7 @@ class Dhl::Shipment::Request
     }
   end
   
-  def set_consignee(company_name, suit_department_name, address_line1, address_line2=nil, address_line3=nil, city, suburb, postal_code, division=nil, country_code, country_name, person_name, phone_number, phone_extension=nil, fax_number=nil, email, mobile_phone_number=nil)
+  def set_consignee(company_name, suit_department_name, address_line1, address_line2, address_line3, city, suburb, postal_code, division, country_code, country_name, person_name, phone_number, phone_extension, fax_number, email, mobile_phone_number)
     validate_country_code!(country_code)
     @consignee = {
       :company_name => company_name,
@@ -79,7 +79,7 @@ class Dhl::Shipment::Request
       :address_line3 => address_line3,
       :city => city,
       :suburb => suburb,
-      :postal_code => postal_code.to_s,
+      :postal_code => postal_code,
       :division => division,
       :country_code => country_code,
       :country_name => country_name,
@@ -94,7 +94,7 @@ class Dhl::Shipment::Request
   alias_method :set_consignee!, :set_consignee
 
   
-  def set_shipper(shipper_id, shipper_account, company_name, suit_department_name, address_line1, address_line2=nil, address_line3=nil, city, suburb, postal_code, division=nil, country_code, country_name, person_name, phone_number, phone_extension=nil, fax_number=nil, email, mobile_phone_number=nil)
+  def set_shipper(shipper_id, shipper_account, company_name, suit_department_name, address_line1, address_line2, address_line3, city, suburb, postal_code, division, country_code, country_name, person_name, phone_number, phone_extension, fax_number, email, mobile_phone_number)
     validate_country_code!(country_code)
     @shipper = {
       :shipper_id => shipper_id,
@@ -106,7 +106,7 @@ class Dhl::Shipment::Request
       :address_line3 => address_line3,
       :city => city,
       :suburb => suburb,
-      :postal_code => postal_code.to_s,
+      :postal_code => postal_code,
       :division => division,
       :country_code => country_code,
       :country_name => country_name,
