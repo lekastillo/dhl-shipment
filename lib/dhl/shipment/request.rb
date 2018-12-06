@@ -242,24 +242,24 @@ class Dhl::Shipment::Request
     @to_xml = ERB.new(File.new(xml_template_path).read, nil,'%<>-').result(binding)
   end
 
-  # ready times are only 8a-5p(17h)
-  def ready_time(time=Time.now)
-    if time.hour >= 17 || time.hour < 8
-      time.strftime("PT08H00M")
-    else
-      time.strftime("PT%HH%MM")
-    end
-  end
+  # # ready times are only 8a-5p(17h)
+  # def ready_time(time=Time.now)
+  #   if time.hour >= 17 || time.hour < 8
+  #     time.strftime("PT08H00M")
+  #   else
+  #     time.strftime("PT%HH%MM")
+  #   end
+  # end
 
-  # ready dates are only mon-fri
-  def ready_date(t=Time.now)
-    date = Date.parse(t.to_s)
-    if (date.cwday >= 6) || (date.cwday >= 5 && t.hour >= 17)
-      date.send(:next_day, 8-date.cwday)
-    else
-      date
-    end.strftime("%Y-%m-%d")
-  end
+  # # ready dates are only mon-fri
+  # def ready_date(t=Time.now)
+  #   date = Date.parse(t.to_s)
+  #   if (date.cwday >= 6) || (date.cwday >= 5 && t.hour >= 17)
+  #     date.send(:next_day, 8-date.cwday)
+  #   else
+  #     date
+  #   end.strftime("%Y-%m-%d")
+  # end
 
   def post
     response = HTTParty.post(servlet_url,
@@ -299,8 +299,8 @@ protected
   end
 
   def validate!
-    raise Dhl::Shipment::FromNotSetError, "#from() is not set" unless (!!@consignee and !!@shipment_details?)
-    raise Dhl::Shipment::ToNotSetError, "#to() is not set" unless (!!@shipper and !!@shipment_details?)
+    raise Dhl::Shipment::FromNotSetError, "#from() is not set" unless !(@consignee and @shipment_details)
+    raise Dhl::Shipment::ToNotSetError, "#to() is not set" unless !(@shipper and @shipment_details)
     # validate_pieces!
   end
 
