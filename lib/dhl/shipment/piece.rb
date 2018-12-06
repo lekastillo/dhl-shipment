@@ -59,12 +59,3 @@ private
     ":#{field} is a required for Dhl::Shipment::Piece. Must be nonzero integer or float."
   end
 end
-
-
-<PieceID>1</PieceID>
-				<PackageType>EE</PackageType>
-				<Weight>2</Weight>
-				<DimWeight>1.0</DimWeight>
-				<Width>2</Width>
-				<Height>2</Height>
-				<Depth>2</Depth>

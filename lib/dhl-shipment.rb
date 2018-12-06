@@ -6,8 +6,8 @@ require "dhl/shipment/errors"
 require "dhl/shipment/request"
 require "dhl/shipment/response"
 require "dhl/shipment/piece"
-require "dhl/shipment/market_service"
-require "dhl/shipment/shipping_service"
+# require "dhl/shipment/market_service"
+# require "dhl/shipment/shipping_service"
 
 class Dhl
   class Shipment
@@ -15,7 +15,7 @@ class Dhl
     DIMENSIONS_UNIT_CODES = { :centimeters => "CM", :inches => "IN" }
     WEIGHT_UNIT_CODES = { :kilograms => "KG", :pounds => "LB" }
     LOG_LEVELS = [:debug, :verbose, :critical, :none]
-    DEFAULT_LOG_LEVEL = :critical
+    DEFAULT_LOG_LEVEL = :debug
 
     def self.configure(&block)
       yield self if block_given?
@@ -94,11 +94,12 @@ class Dhl
       @@password = nil
       @@weight_unit = WEIGHT_UNIT_CODES[:kilograms]
       @@dimensions_unit = DIMENSIONS_UNIT_CODES[:centimeters]
-      @@dutiable = false
       @@test_mode = false
-
+      
       @@logger = self.default_logger
       @@log_level = DEFAULT_LOG_LEVEL
+      # @@dutiable = false
+      # here i should initialize every class var to use in the process
     end
 
     def self.log(message, level = DEFAULT_LOG_LEVEL)

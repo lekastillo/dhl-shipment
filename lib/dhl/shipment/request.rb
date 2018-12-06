@@ -4,8 +4,8 @@ require 'erb'
 require 'set'
 
 class Dhl::Shipment::Request
-  attr_reader :site_id, :password, :from_country_code, :from_postal_code, :to_country_code, :to_postal_code, :duty
-  attr_accessor :pieces
+  attr_reader :site_id, :password, :from_country_code, :from_postal_code, :to_country_code, :to_postal_code, :duty, :requested_pickup_time, :place, :consignee, :shipper, :shippet_detail
+  attr_accessor :pieces, :language, :shipper_dhl_account, :shipping_payment_type, :billing_dhl_account, :reference_id
 
   URLS = {
     :production => 'https://xmlpi-ea.dhl.com/XMLShippingServlet',
@@ -24,9 +24,10 @@ class Dhl::Shipment::Request
       end
     end
 
-    @special_services_list = Set.new
-
+    @requested_pickup_time = false
     @duty = false
+    @place = false
+    @language = 'en'
 
     @pieces = []
   end
@@ -43,18 +44,102 @@ class Dhl::Shipment::Request
     @test_mode = false
   end
 
-  def from(country_code, postal_code, city=nil)
-    @from_postal_code = postal_code.to_s
-    validate_country_code!(country_code)
-    @from_country_code = country_code
-    @from_city_name = city
+  def requested_pickup_time!
+    @requested_pickup_time = true
+  end
+  
+  def not_requested_pickup_time!
+    @requested_pickup_time = false
   end
 
-  def to(country_code, postal_code, city=nil)
-    @to_postal_code = postal_code.to_s
+  def requested_pickup_time?
+    !!@requested_pickup_time
+  end
+
+  def set_place(resident_or_business="C", company_name, address_line1, address_line2, address_line3, postal_code, country_code, city)
+    @place = {
+      :resident_or_business => resident_or_business.slice(0,1).upcase,
+      :company_name => company_name,
+      :address_line1 => address_line1,
+      :address_line2 => address_line2, 
+      :address_line3 => address_line3,
+      :postal_code => postal_code,
+      :country_code => country_code.slice(0,3).upcase,
+      :city => city
+    }
+  end
+  
+  def set_consignee(company_name, suit_department_name, address_line1, address_line2=nil, address_line3=nil, city, suburb, postal_code=nil, division=nil, country_code, country_name, person_name, phone_number, phone_extension=nil, fax_number=nil, email, mobile_phone_number=nil)
     validate_country_code!(country_code)
-    @to_country_code = country_code
-    @to_city_name = city
+    @consignee = {
+      :company_name => company_name,
+      :suit_department_name => suit_department_name,
+      :address_line1 => address_line1,
+      :address_line2 => address_line2,
+      :address_line3 => address_line3,
+      :city => city,
+      :suburb => suburb,
+      :postal_code => postal_code.to_s,
+      :division => division,
+      :country_code => country_code,
+      :country_name => country_name,
+      :person_name => person_name,
+      :phone_number => phone_number,
+      :phone_extension => phone_extension,
+      :fax_number => fax_number,
+      :email => email,
+      :mobile_phone_number => mobile_phone_number,
+    }
+  end
+  alias_method :set_consignee!, :set_consignee
+
+  
+  def set_shipper(shipper_id, shipper_account, company_name, suit_department_name, address_line1, address_line2=nil, address_line3=nil, city, suburb, postal_code=nil, division=nil, country_code, country_name, person_name, phone_number, phone_extension=nil, fax_number=nil, email, mobile_phone_number=nil)
+    validate_country_code!(country_code)
+    @shipper = {
+      :shipper_id => shipper_id,
+      :shipper_account => shipper_account,
+      :company_name => company_name,
+      :suit_department_name => suit_department_name,
+      :address_line1 => address_line1,
+      :address_line2 => address_line2,
+      :address_line3 => address_line3,
+      :city => city,
+      :suburb => suburb,
+      :postal_code => postal_code.to_s,
+      :division => division,
+      :country_code => country_code,
+      :country_name => country_name,
+      :person_name => person_name,
+      :phone_number => phone_number,
+      :phone_extension => phone_extension,
+      :fax_number => fax_number,
+      :email => email,
+      :mobile_phone_number => mobile_phone_number,
+    }
+  end
+  alias_method :set_shipper!, :set_shipper
+
+
+  def set_shipment_details(weight, weight_unit, global_product_code, date, content, dimension_unit, package_type, is_dutiable, currency_code, cust_data)
+    @shipment_detail = {
+      :weight => weight,
+      :weight_unit => weight_unit,
+      :global_product_code => global_product_code,
+      :date => date,
+      :content => content,
+      :dimension_unit => dimension_unit,
+      :package_type => package_type,
+      :is_dutiable => is_dutiable,
+      :currency_code => currency_code.slice(0,3).upcase,
+      :cust_data => cust_data
+    }
+  end
+  alias_method :set_shipment_details!, :set_shipment_details
+
+
+  def shipment_details?
+    !!@shipment_detail
   end
 
   def dutiable?
@@ -73,17 +158,17 @@ class Dhl::Shipment::Request
     @duty = false
   end
 
-  def payment_account_number(pac = nil)
-    if pac.to_s.size > 0
-      @payment_account_number = pac
-    else
-      @payment_account_number
-    end
-  end
+  # def payment_account_number(pac = nil)
+  #   if pac.to_s.size > 0
+  #     @payment_account_number = pac
+  #   else
+  #     @payment_account_number
+  #   end
+  # end
 
-  def payment_country_code(country_code)
-    @payment_country_code = country_code
-  end
+  # def payment_country_code(country_code)
+  #   @payment_country_code = country_code
+  # end
   
 
   def dimensions_unit
@@ -206,19 +291,6 @@ class Dhl::Shipment::Request
     raise e
   end
 
-  def special_services
-    @special_services_list.to_a.sort
-  end
-
-  def add_special_service(special_service_type)
-    return if special_service_type.to_s.size < 1
-    @special_services_list << special_service_type
-  end
-
-  def remove_special_service(special_service_type)
-    return if special_service_type.to_s.size < 1
-    @special_services_list.delete_if{|x| x == special_service_type}
-  end
 
 protected
 
@@ -227,9 +299,9 @@ protected
   end
 
   def validate!
-    raise Dhl::Shipment::FromNotSetError, "#from() is not set" unless (@from_country_code && @from_postal_code)
-    raise Dhl::Shipment::ToNotSetError, "#to() is not set" unless (@to_country_code && @to_postal_code)
-    validate_pieces!
+    raise Dhl::Shipment::FromNotSetError, "#from() is not set" unless (!!@consignee and !!@shipment_details?)
+    raise Dhl::Shipment::ToNotSetError, "#to() is not set" unless (!!@shipper and !!@shipment_details?)
+    # validate_pieces!
   end
 
   def validate_pieces!

@@ -15,13 +15,13 @@
 
 	<RegionCode>AM</RegionCode>
 
-	<%- if requested_pickup_ime? %>
+	<%- if requested_pickup_time? %>
 		<RequestedPickupTime>Y</RequestedPickupTime>
     <% else %>
 		<RequestedPickupTime>N</RequestedPickupTime>
     <% end %>
 
-	<%- if requested_pickup_ime? %>
+	<%- if requested_pickup_time? %>
 	<!-- Type Of Location B=Business R=Residence C= Business/Residence -->
 		<Place>
 			<ResidenceOrBusiness><%= @place[:resident_or_business]%></ResidenceOrBusiness>
@@ -89,7 +89,7 @@
 				<PhoneExtension><%= @consignee[:phone_extension] %></PhoneExtension>
 			<% end %>
 			<%- if @consignee[:fax_number]%>
-				<FaxNumber><%= @consignee[:phone_extension] %></FaxNumber>
+				<FaxNumber><%= @consignee[:fax_number] %></FaxNumber>
 			<% end %>
 
 			<Email><%= @consignee[:email] %></Email>
@@ -133,16 +133,16 @@
 		<Pieces>
 			<% pieces.each_with_index do |piece,i| %><%= piece.piece_id = i+1; piece.to_xml %><% end %>
 		</Pieces>	
-		<Weight><%= @shippet_detail[:weight] %></Weight>
-		<WeightUnit><%= @shippet_detail[:weight_unit] %></WeightUnit>
-		<GlobalProductCode><%= @shippet_detail[:global_product_code] %></GlobalProductCode>
-		<Date><%= @shippet_detail[:date] %></Date>
-		<Contents><%= @shippet_detail[:content] %></Contents>
-		<DimensionUnit><%= @shippet_detail[:dimension_unit] %></DimensionUnit>
-		<PackageType><%= @shippet_detail[:package_type] %></PackageType>
-		<IsDutiable><%= @shippet_detail[:is_dutiable] %></IsDutiable>
-		<CurrencyCode><%= @shippet_detail[:currency_code] %></CurrencyCode>
-		<CustData><%= @shippet_detail[:cust_data] %></CustData>
+		<Weight><%= @shipment_detail[:weight] %></Weight>
+		<WeightUnit><%= @shipment_detail[:weight_unit] %></WeightUnit>
+		<GlobalProductCode><%= @shipment_detail[:global_product_code] %></GlobalProductCode>
+		<Date><%= @shipment_detail[:date] %></Date>
+		<Contents><%= @shipment_detail[:content] %></Contents>
+		<DimensionUnit><%= @shipment_detail[:dimension_unit] %></DimensionUnit>
+		<PackageType><%= @shipment_detail[:package_type] %></PackageType>
+		<IsDutiable><%= @shipment_detail[:is_dutiable] %></IsDutiable>
+		<CurrencyCode><%= @shipment_detail[:currency_code] %></CurrencyCode>
+		<CustData><%= @shipment_detail[:cust_data] %></CustData>
 	</ShipmentDetails>
 
 	<Shipper>
@@ -183,7 +183,7 @@
 				<PhoneExtension><%= @shipper[:phone_extension] %></PhoneExtension>
 			<% end %>
 			<%- if @shipper[:fax_number]%>
-				<FaxNumber><%= @shipper[:phone_extension] %></FaxNumber>
+				<FaxNumber><%= @shipper[:fax_number] %></FaxNumber>
 			<% end %>
 
 			<Email><%= @shipper[:email] %></Email>
