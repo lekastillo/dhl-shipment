@@ -1,16 +1,16 @@
 # -*- encoding: utf-8 -*-
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'dhl/get_quote/version'
+require 'dhl/shipment/version'
 
 Gem::Specification.new do |gem|
-  gem.name          = "dhl-get_quote"
-  gem.version       = Dhl::GetQuote::VERSION
-  gem.authors       = ["Deseret Book", "Matthew Nielsen"]
+  gem.name          = "dhl-shipment"
+  gem.version       = Dhl::Shipment::VERSION
+  gem.authors       = ["Deseret Book", "Matthew Nielsen", "Luis Castillo"]
   gem.email         = ["mnielsen@deseretbook.com"]
-  gem.description   = %q{Get shipping quotes from DHL}
-  gem.summary       = %q{Gem to interface with DHL's XML-PI shipping quote service.}
-  gem.homepage      = "https://github.com/deseretbook/dhl-get_quote"
+  gem.description   = %q{Place shipping orders to DHL}
+  gem.summary       = %q{Gem to interface with DHL's XML-PI shipping service.}
+  gem.homepage      = "https://github.com/lekastillo/dhl-shipment"
 
   gem.files         = `git ls-files`.split($/)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
@@ -27,8 +27,8 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'timecop', '0.6.1'
   # gem.add_development_dependency 'debugger'
 
-  if Dhl::GetQuote::PostInstallMessage
-    gem.post_install_message = Dhl::GetQuote::PostInstallMessage
+  if Dhl::Shipment::PostInstallMessage
+    gem.post_install_message = Dhl::Shipment::PostInstallMessage
   end
 
 end
