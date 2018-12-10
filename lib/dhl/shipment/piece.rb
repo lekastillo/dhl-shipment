@@ -12,8 +12,8 @@ class Dhl::Shipment::Piece
       raise Dhl::Shipment::OptionsError, required_option_error_message(:weight)
     end
 
-    if options[:width] || options[:height] || options[:depth] || options[:dim_weight] 
-      [ :width, :height, :depth, :dim_weight ].each do |req|
+    if options[:width] || options[:height] || options[:depth]
+      [ :width, :height, :depth].each do |req|
         if options[req].to_f > 0.0
           instance_variable_set("@#{req}", options[req].to_f)
         else
@@ -46,8 +46,6 @@ eos
     xml_str << "  <Depth>#{@depth}</Depth>\n" if @depth
     xml_str << "  <Width>#{@width}</Width>\n" if @width
     xml_str << "  <Weight>#{@weight}</Weight>\n" if @weight
-    xml_str << "  <DimWeight>#{@dim_weight}</DimWeight>\n" if @dim_weight
-    xml_str << "  <PackageType>#{@package_type}</PackageType>\n" if @package_type
 
     xml_str += "</Piece>\n"
     xml_str
