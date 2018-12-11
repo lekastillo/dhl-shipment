@@ -56,7 +56,7 @@
     <Consignee>
 		<CompanyName><%= @consignee[:company_name] %></CompanyName>
 		
-		<%- if @consignee[:suit_department_name].present? %>
+		<%- if @consignee.include?(:suit_department_name) %>
 			<SuiteDepartmentName><%= @consignee[:suit_department_name] %></SuiteDepartmentName>
 		<% end %>
 		
