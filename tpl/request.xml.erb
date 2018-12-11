@@ -71,13 +71,17 @@
 		<% end %>
 
 		<City><%= @consignee[:city] %></City>
-		<City><%= @consignee[:suburb] %></City>
+		<%- if !@consignee[:suburb].nil? %>
+			<Suburb><%= @consignee[:suburb] %></Suburb>
+		<% end %>	
 
 		<%- if !@consignee[:postal_code].nil? %>
 			<PostalCode><%= @consignee[:postal_code] %></PostalCode>
 		<% end %>
 
-		<Division><%= @consignee[:division] %></Division>
+		<%- if !@consignee[:division].nil? %>
+			<Division><%= @consignee[:division] %></Division>
+		<% end %>
 
 		<CountryCode><%= @consignee[:country_code] %></CountryCode>
 		<CountryName><%= @consignee[:country_name] %></CountryName>
@@ -166,13 +170,18 @@
 		<% end %>
 
 		<City><%= @shipper[:city] %></City>
-		<City><%= @shipper[:suburb] %></City>
+
+		<%- if !@shipper[:suburb].nil? %>
+			<Suburb><%= @shipper[:suburb] %></Suburb>
+		<% end %>
 
 		<%- if !@shipper[:postal_code].nil? %>
 			<PostalCode><%= @shipper[:postal_code] %></PostalCode>
 		<% end %>
 
-		<Division><%= @shipper[:division] %></Division>
+		<%- if !@shipper[:division].nil? %>
+			<Division><%= @shipper[:division] %></Division>
+		<% end %>
 
 		<CountryCode><%= @shipper[:country_code] %></CountryCode>
 		<CountryName><%= @shipper[:country_name] %></CountryName>
