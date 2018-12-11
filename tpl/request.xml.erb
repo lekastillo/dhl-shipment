@@ -27,11 +27,11 @@
 			<ResidenceOrBusiness><%= @place[:resident_or_business]%></ResidenceOrBusiness>
 			<CompanyName><%= @place[:company_name]%></CompanyName>
 			<AddressLine><%= @place[:address_line1]%></AddressLine>
-			<%- if @place.include?(:address_line2) %>
+			<%- if !@place[:address_line2].nil? %>
 				<AddressLine><%= @place[:address_line2] %></AddressLine>
 			<% end %>
 
-			<%- if @place.include?(:address_line3) %>
+			<%- if !@place[:address_line3].nil? %>
 				<AddressLine><%= @place[:address_line3] %></AddressLine>
 			<% end %>
 			<City><%= @place[:city]%></City>
@@ -56,24 +56,24 @@
     <Consignee>
 		<CompanyName><%= @consignee[:company_name] %></CompanyName>
 		
-		<%- if @consignee.include?(:suit_department_name) %>
+		<%- if !@consignee[:suit_department_name].nil? %>
 			<SuiteDepartmentName><%= @consignee[:suit_department_name] %></SuiteDepartmentName>
 		<% end %>
 		
 		<AddressLine><%= @consignee[:address_line1] %></AddressLine>
 		
-		<%- if @consignee.include?(:address_line2) %>
+		<%- if !@consignee[:address_line2].nil? %>
 			<AddressLine><%= @consignee[:address_line2] %></AddressLine>
 		<% end %>
 
-		<%- if @consignee.include?(:address_line3) %>
+		<%- if !@consignee[:address_line3].nil? %>
 			<AddressLine><%= @consignee[:address_line3] %></AddressLine>
 		<% end %>
 
 		<City><%= @consignee[:city] %></City>
 		<City><%= @consignee[:suburb] %></City>
 
-		<%- if @consignee.include?(:postal_code) %>
+		<%- if !@consignee[:postal_code].nil? %>
 			<PostalCode><%= @consignee[:postal_code] %></PostalCode>
 		<% end %>
 
@@ -85,16 +85,16 @@
 		<Contact>
 			<PersonName><%= @consignee[:person_name] %></PersonName>
 			<PhoneNumber><%= @consignee[:phone_number] %></PhoneNumber>
-			<%- if @consignee.include?(:phone_extension) %>
+			<%- if !@consignee[:phone_extension].nil? %>
 				<PhoneExtension><%= @consignee[:phone_extension] %></PhoneExtension>
 			<% end %>
-			<%- if @consignee.include?(:fax_number) %>
+			<%- if !@consignee[:fax_number].nil? %>
 			
 				<FaxNumber><%= @consignee[:fax_number] %></FaxNumber>
 			<% end %>
 
 			<Email><%= @consignee[:email] %></Email>
-			<%- if @consignee.include?(:mobile_phone_number) %>
+			<%- if !@consignee[:mobile_phone_number].nil? %>
 				<MobilePhoneNumber><%= @consignee[:mobile_phone_number] %></MobilePhoneNumber>
 			<% end %>
 		</Contact>
@@ -151,24 +151,24 @@
 		<RegisteredAccount><%= @shipper[:shipper_account] %></RegisteredAccount>
 		<CompanyName><%= @shipper[:company_name] %></CompanyName>
 		
-		<%- if @shipper.include?(:suit_department_name) %>
+		<%- if !@shipper[:suit_department_name].nil? %>
 			<SuiteDepartmentName><%= @shipper[:suit_department_name] %></SuiteDepartmentName>
 		<% end %>
 		
 		<AddressLine><%= @shipper[:address_line1] %></AddressLine>
 		
-		<%- if @shipper.include?(:address_line2) %>
+		<%- if !@shipper[:address_line2].nil? %>
 			<AddressLine><%= @shipper[:address_line2] %></AddressLine>
 		<% end %>
 
-		<%- if @shipper.include?(:address_line3) %>
+		<%- if !@shipper[:address_line3].nil? %>
 			<AddressLine><%= @shipper[:address_line3] %></AddressLine>
 		<% end %>
 
 		<City><%= @shipper[:city] %></City>
 		<City><%= @shipper[:suburb] %></City>
 
-		<%- if @shipper.include?(:postal_code) %>
+		<%- if !@shipper[:postal_code].nil? %>
 			<PostalCode><%= @shipper[:postal_code] %></PostalCode>
 		<% end %>
 
@@ -180,15 +180,15 @@
 		<Contact>
 			<PersonName><%= @shipper[:person_name] %></PersonName>
 			<PhoneNumber><%= @shipper[:phone_number] %></PhoneNumber>
-			<%- if @shipper.include?(:phone_extension) %>
+			<%- if !@shipper[:phone_extension].nil? %>
 				<PhoneExtension><%= @shipper[:phone_extension] %></PhoneExtension>
 			<% end %>
-			<%- if @shipper.include?(:fax_number) %>
+			<%- if !@shipper[:fax_number].nil? %>
 				<FaxNumber><%= @shipper[:fax_number] %></FaxNumber>
 			<% end %>
 
 			<Email><%= @shipper[:email] %></Email>
-			<%- if @shipper.include?(:mobile_phone_number) %>
+			<%- if !@shipper[:mobile_phone_number].nil? %>
 				<MobilePhoneNumber><%= @shipper[:mobile_phone_number] %></MobilePhoneNumber>
 			<% end %>
 		</Contact>
