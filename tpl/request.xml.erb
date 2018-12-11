@@ -27,11 +27,11 @@
 			<ResidenceOrBusiness><%= @place[:resident_or_business]%></ResidenceOrBusiness>
 			<CompanyName><%= @place[:company_name]%></CompanyName>
 			<AddressLine><%= @place[:address_line1]%></AddressLine>
-			<%- if @place[:address_line2].present? %>
+			<%- if @place.include?(:address_line2) %>
 				<AddressLine><%= @place[:address_line2] %></AddressLine>
 			<% end %>
 
-			<%- if @place[:address_line3].present? %>
+			<%- if @place.include?(:address_line3) %>
 				<AddressLine><%= @place[:address_line3] %></AddressLine>
 			<% end %>
 			<City><%= @place[:city]%></City>
@@ -62,18 +62,18 @@
 		
 		<AddressLine><%= @consignee[:address_line1] %></AddressLine>
 		
-		<%- if @consignee[:address_line2].present? %>
+		<%- if @consignee.include?(:address_line2) %>
 			<AddressLine><%= @consignee[:address_line2] %></AddressLine>
 		<% end %>
 
-		<%- if @consignee[:address_line3].present? %>
+		<%- if @consignee.include?(:address_line3) %>
 			<AddressLine><%= @consignee[:address_line3] %></AddressLine>
 		<% end %>
 
 		<City><%= @consignee[:city] %></City>
 		<City><%= @consignee[:suburb] %></City>
 
-		<%- if @consignee[:postal_code].present? %>
+		<%- if @consignee.include?(:postal_code) %>
 			<PostalCode><%= @consignee[:postal_code] %></PostalCode>
 		<% end %>
 
@@ -85,15 +85,16 @@
 		<Contact>
 			<PersonName><%= @consignee[:person_name] %></PersonName>
 			<PhoneNumber><%= @consignee[:phone_number] %></PhoneNumber>
-			<%- if @consignee[:phone_extension]%>
+			<%- if @consignee.include?(:phone_extension) %>
 				<PhoneExtension><%= @consignee[:phone_extension] %></PhoneExtension>
 			<% end %>
-			<%- if @consignee[:fax_number]%>
+			<%- if @consignee.include?(:fax_number) %>
+			
 				<FaxNumber><%= @consignee[:fax_number] %></FaxNumber>
 			<% end %>
 
 			<Email><%= @consignee[:email] %></Email>
-			<%- if @consignee[:mobile_phone_number]%>
+			<%- if @consignee.include?(:mobile_phone_number) %>
 				<MobilePhoneNumber><%= @consignee[:mobile_phone_number] %></MobilePhoneNumber>
 			<% end %>
 		</Contact>
@@ -150,24 +151,24 @@
 		<RegisteredAccount><%= @shipper[:shipper_account] %></RegisteredAccount>
 		<CompanyName><%= @shipper[:company_name] %></CompanyName>
 		
-		<%- if @shipper[:suit_department_name].present? %>
+		<%- if @shipper.include?(:suit_department_name) %>
 			<SuiteDepartmentName><%= @shipper[:suit_department_name] %></SuiteDepartmentName>
 		<% end %>
 		
 		<AddressLine><%= @shipper[:address_line1] %></AddressLine>
 		
-		<%- if @shipper[:address_line2].present? %>
+		<%- if @shipper.include?(:address_line2) %>
 			<AddressLine><%= @shipper[:address_line2] %></AddressLine>
 		<% end %>
 
-		<%- if @shipper[:address_line3].present? %>
+		<%- if @shipper.include?(:address_line3) %>
 			<AddressLine><%= @shipper[:address_line3] %></AddressLine>
 		<% end %>
 
 		<City><%= @shipper[:city] %></City>
 		<City><%= @shipper[:suburb] %></City>
 
-		<%- if @shipper[:postal_code].present? %>
+		<%- if @shipper.include?(:postal_code) %>
 			<PostalCode><%= @shipper[:postal_code] %></PostalCode>
 		<% end %>
 
@@ -179,15 +180,15 @@
 		<Contact>
 			<PersonName><%= @shipper[:person_name] %></PersonName>
 			<PhoneNumber><%= @shipper[:phone_number] %></PhoneNumber>
-			<%- if @shipper[:phone_extension]%>
+			<%- if @shipper.include?(:phone_extension) %>
 				<PhoneExtension><%= @shipper[:phone_extension] %></PhoneExtension>
 			<% end %>
-			<%- if @shipper[:fax_number]%>
+			<%- if @shipper.include?(:fax_number) %>
 				<FaxNumber><%= @shipper[:fax_number] %></FaxNumber>
 			<% end %>
 
 			<Email><%= @shipper[:email] %></Email>
-			<%- if @shipper[:mobile_phone_number]%>
+			<%- if @shipper.include?(:mobile_phone_number) %>
 				<MobilePhoneNumber><%= @shipper[:mobile_phone_number] %></MobilePhoneNumber>
 			<% end %>
 		</Contact>

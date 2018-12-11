@@ -4,8 +4,8 @@ require 'erb'
 require 'set'
 
 class Dhl::Shipment::Request
-  attr_reader :site_id, :password, :from_country_code, :from_postal_code, :to_country_code, :to_postal_code, :duty, :requested_pickup_time, :place, :consignee, :shipper, :shippet_detail
-  attr_accessor :pieces, :language, :shipper_dhl_account, :shipping_payment_type, :billing_dhl_account, :reference_id
+  attr_reader :site_id, :password, :duty, :requested_pickup_time, :place, :consignee, :shipper, :shippet_detail
+  attr_accessor :pieces, :language, :shipper_dhl_account, :shipping_payment_type, :billing_dhl_account, :reference_id, :shipment_time, :shipment_reference
 
   URLS = {
     :production => 'https://xmlpi-ea.dhl.com/XMLShippingServlet',
