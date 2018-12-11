@@ -71,9 +71,6 @@
 		<% end %>
 
 		<City><%= @consignee[:city] %></City>
-		<%- if !@consignee[:suburb].nil? %>
-			<Suburb><%= @consignee[:suburb] %></Suburb>
-		<% end %>	
 
 		<%- if !@consignee[:postal_code].nil? %>
 			<PostalCode><%= @consignee[:postal_code] %></PostalCode>
@@ -102,6 +99,9 @@
 				<MobilePhoneNumber><%= @consignee[:mobile_phone_number] %></MobilePhoneNumber>
 			<% end %>
 		</Contact>
+		<%- if !@consignee[:suburb].nil? %>
+			<Suburb><%= @consignee[:suburb] %></Suburb>
+		<% end %>	
 	</Consignee>
 
     <!-- <Commodity>
@@ -171,9 +171,6 @@
 
 		<City><%= @shipper[:city] %></City>
 
-		<%- if !@shipper[:suburb].nil? %>
-			<Suburb><%= @shipper[:suburb] %></Suburb>
-		<% end %>
 
 		<%- if !@shipper[:postal_code].nil? %>
 			<PostalCode><%= @shipper[:postal_code] %></PostalCode>
@@ -201,6 +198,9 @@
 				<MobilePhoneNumber><%= @shipper[:mobile_phone_number] %></MobilePhoneNumber>
 			<% end %>
 		</Contact>
+		<%- if !@shipper[:suburb].nil? %>
+			<Suburb><%= @shipper[:suburb] %></Suburb>
+		<% end %>
 	</Shipper>
 <!-- 
     <SpecialService>

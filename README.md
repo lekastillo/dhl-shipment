@@ -425,3 +425,25 @@ The above block sets defaults for use thereafter. You would then not have to pas
 
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/deseretbook/dhl-get_quote/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
+
+
+require 'dhl-shipment'
+request=Dhl::Shipment::Request.new(:site_id => "MOVISADECV", :password => "a23M9jH1DC", :test_mode => true)
+request.set_consignee('Lekastillo SA de CV', nil, 'Casa 5 N 4', nil, nil, 'San Salvador', 'CALLE MONSERRAT', nil, nil,  'SV', 'El Salvador', 'Luis Castillo', 50324080686, nil, nil, 'castillovaliente@gmail.com', 50379900988)
+request.set_shipper(123123123,1233123123,'Mia Logistic', nil, '2630 NW 75th Avenue', nil, nil, 'MIAMI', nil, 33122, nil, 'US', 'United States of America', 'William Monico', 50324080686, nil, nil, 'luis_castillo777@hotmail.com', 50376349171)
+request.set_shipment_details(10, 'K', 'P', '11/12/2018', 'algo que no se', 'C', 'YP', 'Y', 'USD', 'LABEL CUS')
+request.dutiable(100, 'USD')
+request.pieces << Dhl::Shipment::Piece.new(:height => 20.0, :weight => 3.5, :width => 20.0, :depth => 19.0, :dim_weight => 3 )
+request.billing_dhl_account='12312312323'
+request.shipper_dhl_account='12312312312312'
+request.shipment_reference='1234567890123456789012345678901'
+request.shipment_time=DateTime.now.to_s
+request.reference_id='123123123123'
+request.shipping_payment_type='S'
+request.to_xml
+
+
+
+response = request.post
+
+
