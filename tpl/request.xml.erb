@@ -12,17 +12,13 @@
 			<SoftwareVersion>0.5</SoftwareVersion>
 		</MetaData>
 	</Request>
-
 	<RegionCode>AM</RegionCode>
-
 	<%- if requested_pickup_time? %>
 		<RequestedPickupTime>Y</RequestedPickupTime>
     <% else %>
 		<RequestedPickupTime>N</RequestedPickupTime>
     <% end %>
-
 	<%- if requested_pickup_time? %>
-	<!-- Type Of Location B=Business R=Residence C= Business/Residence -->
 		<Place>
 			<ResidenceOrBusiness><%= @place[:resident_or_business]%></ResidenceOrBusiness>
 			<CompanyName><%= @place[:company_name]%></CompanyName>
@@ -30,7 +26,6 @@
 			<%- if !@place[:address_line2].nil? %>
 				<AddressLine><%= @place[:address_line2] %></AddressLine>
 			<% end %>
-
 			<%- if !@place[:address_line3].nil? %>
 				<AddressLine><%= @place[:address_line3] %></AddressLine>
 			<% end %>
@@ -39,50 +34,36 @@
 			<PostalCode><%= @place[:postal_code]%></PostalCode>
 		</Place>
     <% end %>
-
     <NewShipper>Y</NewShipper>
 	<LanguageCode><%= @language %></LanguageCode>
-
-
 	<PiecesEnabled>Y</PiecesEnabled>
-
     <Billing>
 		<ShipperAccountNumber><%= @shipper_dhl_account %></ShipperAccountNumber>
 		<ShippingPaymentType><%= @shipping_payment_type %></ShippingPaymentType>
 		<BillingAccountNumber><%= @billing_dhl_account %></BillingAccountNumber>
 		<DutyPaymentType><%= @shipping_payment_type %></DutyPaymentType>
 	</Billing>
-
     <Consignee>
 		<CompanyName><%= @consignee[:company_name] %></CompanyName>
-		
 		<%- if !@consignee[:suit_department_name].nil? %>
 			<SuiteDepartmentName><%= @consignee[:suit_department_name] %></SuiteDepartmentName>
 		<% end %>
-		
 		<AddressLine><%= @consignee[:address_line1] %></AddressLine>
-		
 		<%- if !@consignee[:address_line2].nil? %>
 			<AddressLine><%= @consignee[:address_line2] %></AddressLine>
 		<% end %>
-
 		<%- if !@consignee[:address_line3].nil? %>
 			<AddressLine><%= @consignee[:address_line3] %></AddressLine>
 		<% end %>
-
 		<City><%= @consignee[:city] %></City>
-
 		<%- if !@consignee[:postal_code].nil? %>
 			<PostalCode><%= @consignee[:postal_code] %></PostalCode>
 		<% end %>
-
 		<%- if !@consignee[:division].nil? %>
 			<Division><%= @consignee[:division] %></Division>
 		<% end %>
-
 		<CountryCode><%= @consignee[:country_code] %></CountryCode>
 		<CountryName><%= @consignee[:country_name] %></CountryName>
-
 		<Contact>
 			<PersonName><%= @consignee[:person_name] %></PersonName>
 			<PhoneNumber><%= @consignee[:phone_number] %></PhoneNumber>
@@ -90,10 +71,8 @@
 				<PhoneExtension><%= @consignee[:phone_extension] %></PhoneExtension>
 			<% end %>
 			<%- if !@consignee[:fax_number].nil? %>
-			
 				<FaxNumber><%= @consignee[:fax_number] %></FaxNumber>
 			<% end %>
-
 			<Email><%= @consignee[:email] %></Email>
 			<%- if !@consignee[:mobile_phone_number].nil? %>
 				<MobilePhoneNumber><%= @consignee[:mobile_phone_number] %></MobilePhoneNumber>
@@ -103,36 +82,15 @@
 			<Suburb><%= @consignee[:suburb] %></Suburb>
 		<% end %>	
 	</Consignee>
-
-    <!-- <Commodity>
-		<CommodityCode>cc</CommodityCode>
-		<CommodityName>cn</CommodityName>
-	</Commodity> -->
-
 	<%- if dutiable? %>
 		<Dutiable>
 			<DeclaredCurrency><%= @duty[:declared_currency] %></DeclaredCurrency>
 			<DeclaredValue><%= @duty[:declared_value] %></DeclaredValue>
 		</Dutiable>
 	<% end %>
-<!-- 
-    <Dutiable>
-		<DeclaredValue>100.00</DeclaredValue>
-		<DeclaredCurrency>USD</DeclaredCurrency>
-		<ScheduleB>3002905110</ScheduleB>
-		<ExportLicense>D123456</ExportLicense>
-		<ShipperEIN>112233445566</ShipperEIN>
-		<ShipperIDType>S</ShipperIDType>
-		<ImportLicense>ImportLic</ImportLicense>
-		<ConsigneeEIN>ConEIN2123</ConsigneeEIN>
-		<TermsOfTrade>DAP</TermsOfTrade>
-	</Dutiable> -->
-
     <Reference>
 		<ReferenceID><%= @reference_id %></ReferenceID>
-		<!--<ReferenceType></ReferenceType>-->
 	</Reference>
-
     <ShipmentDetails>
 		<NumberOfPieces><% pieces.count %></NumberOfPieces>
 		<Pieces>
@@ -149,40 +107,29 @@
 		<CurrencyCode><%= @shipment_detail[:currency_code] %></CurrencyCode>
 		<CustData><%= @shipment_detail[:cust_data] %></CustData>
 	</ShipmentDetails>
-
 	<Shipper>
 		<ShipperID><%= @shipper[:shipper_id] %></ShipperID>
 		<RegisteredAccount><%= @shipper[:shipper_account] %></RegisteredAccount>
 		<CompanyName><%= @shipper[:company_name] %></CompanyName>
-		
 		<%- if !@shipper[:suit_department_name].nil? %>
 			<SuiteDepartmentName><%= @shipper[:suit_department_name] %></SuiteDepartmentName>
 		<% end %>
-		
 		<AddressLine><%= @shipper[:address_line1] %></AddressLine>
-		
 		<%- if !@shipper[:address_line2].nil? %>
 			<AddressLine><%= @shipper[:address_line2] %></AddressLine>
 		<% end %>
-
 		<%- if !@shipper[:address_line3].nil? %>
 			<AddressLine><%= @shipper[:address_line3] %></AddressLine>
 		<% end %>
-
 		<City><%= @shipper[:city] %></City>
-
-
 		<%- if !@shipper[:postal_code].nil? %>
 			<PostalCode><%= @shipper[:postal_code] %></PostalCode>
 		<% end %>
-
 		<%- if !@shipper[:division].nil? %>
 			<Division><%= @shipper[:division] %></Division>
 		<% end %>
-
 		<CountryCode><%= @shipper[:country_code] %></CountryCode>
 		<CountryName><%= @shipper[:country_name] %></CountryName>
-
 		<Contact>
 			<PersonName><%= @shipper[:person_name] %></PersonName>
 			<PhoneNumber><%= @shipper[:phone_number] %></PhoneNumber>
@@ -192,7 +139,6 @@
 			<%- if !@shipper[:fax_number].nil? %>
 				<FaxNumber><%= @shipper[:fax_number] %></FaxNumber>
 			<% end %>
-
 			<Email><%= @shipper[:email] %></Email>
 			<%- if !@shipper[:mobile_phone_number].nil? %>
 				<MobilePhoneNumber><%= @shipper[:mobile_phone_number] %></MobilePhoneNumber>
@@ -202,11 +148,6 @@
 			<Suburb><%= @shipper[:suburb] %></Suburb>
 		<% end %>
 	</Shipper>
-<!-- 
-    <SpecialService>
-		<SpecialServiceType>WY</SpecialServiceType>
-	</SpecialService> -->
-
 	<Notification>
 		<EmailAddress><%= @shipper[:email] %></EmailAddress>
 		<Message>Lorem Ipsum Dolor Ammet, Send</Message>
@@ -215,14 +156,9 @@
 		<EmailAddress><%= @consignee[:email] %></EmailAddress>
 		<Message>Lorem Ipsum Dolor Ammet, Reciever</Message>
 	</Notification>
-
-
 	<EProcShip>N</EProcShip>
-
     <LabelImageFormat>PDF</LabelImageFormat>
-
 	<RequestArchiveDoc>Y</RequestArchiveDoc>
-
 	<Label>
 		<HideAccount>Y</HideAccount>
 		<LabelTemplate>6X4_A4_PDF</LabelTemplate>
@@ -232,7 +168,5 @@
 			<LogoImageFormat>GIF</LogoImageFormat>
 		</CustomerLogo>
 	</Label>
-
 	<ODDLinkReq>Y</ODDLinkReq>
-
 </req:ShipmentRequest>
