@@ -92,7 +92,7 @@
 		<ReferenceID><%= @reference_id %></ReferenceID>
 	</Reference>
     <ShipmentDetails>
-		<NumberOfPieces><% pieces.count %></NumberOfPieces>
+		<NumberOfPieces><%= pieces.count %></NumberOfPieces>
 		<Pieces>
 			<% pieces.each_with_index do |piece,i| %><%= piece.piece_id = i+1; piece.to_xml %><% end %>
 		</Pieces>	
