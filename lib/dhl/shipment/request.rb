@@ -151,10 +151,12 @@ class Dhl::Shipment::Request
     !!@duty
   end
 
-  def dutiable(value, currency_code="USD")
+  # def dutiable(value, currency_code="USD", terms_of_trade)
+  def dutiable(dutiable_params = {})
     @duty = {
-      :declared_value => value.to_f,
-      :declared_currency => currency_code.slice(0,3).upcase
+      :declared_value => dutiable_params[:value].to_f,
+      :declared_currency => dutiable_params[:currency_code].slice(0,3).upcase,
+      :terms_of_trade=> dutiable_params[:terms_of_trade]
     }
   end
   alias_method :dutiable!, :dutiable
