@@ -56,83 +56,88 @@ class Dhl::Shipment::Request
     !!@requested_pickup_time
   end
 
-  def set_place(resident_or_business="C", company_name, address_line1, address_line2, address_line3, postal_code, country_code, city)
+  def set_place(place_params = {})
+    @test_mode = !!place_params[:test_mode] || Dhl::Shipment.test_mode?
+
     @place = {
-      :resident_or_business => resident_or_business.slice(0,1).upcase,
-      :company_name => company_name,
-      :address_line1 => address_line1,
-      :address_line2 => address_line2, 
-      :address_line3 => address_line3,
-      :postal_code => postal_code,
-      :country_code => country_code.slice(0,3).upcase,
-      :city => city
+      :resident_or_business => place_params[:resident_or_business].slice(0,1).upcase,
+      :company_name => place_params[:company_name],
+      :address_line1 => place_params[:address_line1],
+      :address_line2 => place_params[:address_line2], 
+      :address_line3 => place_params[:address_line3],
+      :postal_code => place_params[:postal_code],
+      :country_code => place_params[:country_code].slice(0,3).upcase,
+      :city => place_params[:city]
     }
   end
   
-  def set_consignee(company_name, suit_department_name, address_line1, address_line2, address_line3, city, suburb, postal_code, division, country_code, country_name, person_name, phone_number, phone_extension, fax_number, email, mobile_phone_number)
-    validate_country_code!(country_code)
+  # def set_consignee(company_name, suit_department_name, address_line1, address_line2, address_line3, city, suburb, postal_code, division, country_code, country_name, person_name, phone_number, phone_extension, fax_number, email, mobile_phone_number)
+  def set_consignee(consignee_params = {})
+    validate_country_code!(consignee_params[:country_code])
     @consignee = {
-      :company_name => company_name,
-      :suit_department_name => suit_department_name,
-      :address_line1 => address_line1,
-      :address_line2 => address_line2,
-      :address_line3 => address_line3,
-      :city => city,
-      :suburb => suburb,
-      :postal_code => postal_code,
-      :division => division,
-      :country_code => country_code,
-      :country_name => country_name,
-      :person_name => person_name,
-      :phone_number => phone_number,
-      :phone_extension => phone_extension,
-      :fax_number => fax_number,
-      :email => email,
-      :mobile_phone_number => mobile_phone_number,
+      :company_name => consignee_params[:company_name],
+      :suit_department_name => consignee_params[:suit_department_name],
+      :address_line1 => consignee_params[:address_line1],
+      :address_line2 => consignee_params[:address_line2],
+      :address_line3 => consignee_params[:address_line3],
+      :city => consignee_params[:city],
+      :suburb => consignee_params[:suburb],
+      :postal_code => consignee_params[:postal_code],
+      :division => consignee_params[:division],
+      :country_code => consignee_params[:country_code],
+      :country_name => consignee_params[:country_name],
+      :person_name => consignee_params[:person_name],
+      :phone_number => consignee_params[:phone_number],
+      :phone_extension => consignee_params[:phone_extension],
+      :fax_number => consignee_params[:fax_number],
+      :email => consignee_params[:email],
+      :mobile_phone_number => consignee_params[:mobile_phone_number],
     }
   end
   alias_method :set_consignee!, :set_consignee
 
   
-  def set_shipper(shipper_id, shipper_account, company_name, suit_department_name, address_line1, address_line2, address_line3, city, suburb, postal_code, division, country_code, country_name, person_name, phone_number, phone_extension, fax_number, email, mobile_phone_number)
-    validate_country_code!(country_code)
+  # def set_shipper(shipper_id, shipper_account, company_name, suit_department_name, address_line1, address_line2, address_line3, city, suburb, postal_code, division, country_code, country_name, person_name, phone_number, phone_extension, fax_number, email, mobile_phone_number)
+  def set_shipper(shipper_params = {})
+    validate_country_code!(shipper_params[:country_code])
     @shipper = {
-      :shipper_id => shipper_id,
-      :shipper_account => shipper_account,
-      :company_name => company_name,
-      :suit_department_name => suit_department_name,
-      :address_line1 => address_line1,
-      :address_line2 => address_line2,
-      :address_line3 => address_line3,
-      :city => city,
-      :suburb => suburb,
-      :postal_code => postal_code,
-      :division => division,
-      :country_code => country_code,
-      :country_name => country_name,
-      :person_name => person_name,
-      :phone_number => phone_number,
-      :phone_extension => phone_extension,
-      :fax_number => fax_number,
-      :email => email,
-      :mobile_phone_number => mobile_phone_number,
+      :shipper_id => shipper_params[:shipper_id],
+      :shipper_account => shipper_params[:shipper_account],
+      :company_name => shipper_params[:company_name],
+      :suit_department_name => shipper_params[:suit_department_name],
+      :address_line1 => shipper_params[:address_line1],
+      :address_line2 => shipper_params[:address_line2],
+      :address_line3 => shipper_params[:address_line3],
+      :city => shipper_params[:city],
+      :suburb => shipper_params[:suburb],
+      :postal_code => shipper_params[:postal_code],
+      :division => shipper_params[:division],
+      :country_code => shipper_params[:country_code],
+      :country_name => shipper_params[:country_name],
+      :person_name => shipper_params[:person_name],
+      :phone_number => shipper_params[:phone_number],
+      :phone_extension => shipper_params[:phone_extension],
+      :fax_number => shipper_params[:fax_number],
+      :email => shipper_params[:email],
+      :mobile_phone_number => shipper_params[:mobile_phone_number],
     }
   end
   alias_method :set_shipper!, :set_shipper
 
 
-  def set_shipment_details(weight, weight_unit, global_product_code, date, content, dimension_unit, package_type, is_dutiable, currency_code, cust_data)
+  # def set_shipment_details(weight, weight_unit, global_product_code, date, content, dimension_unit, package_type, is_dutiable, currency_code, cust_data)
+  def set_shipment_details(shipment_detail_params = {})
     @shipment_detail = {
-      :weight => weight,
-      :weight_unit => weight_unit,
-      :global_product_code => global_product_code,
-      :date => date,
-      :content => content,
-      :dimension_unit => dimension_unit,
-      :package_type => package_type,
-      :is_dutiable => is_dutiable,
-      :currency_code => currency_code.slice(0,3).upcase,
-      :cust_data => cust_data
+      :weight => shipment_detail_params[:weight],
+      :weight_unit => shipment_detail_params[:weight_unit],
+      :global_product_code => shipment_detail_params[:global_product_code],
+      :date => shipment_detail_params[:date],
+      :content => shipment_detail_params[:content],
+      :dimension_unit => shipment_detail_params[:dimension_unit],
+      :package_type => shipment_detail_params[:package_type],
+      :is_dutiable => shipment_detail_params[:is_dutiable],
+      :currency_code => shipment_detail_params[:currency_code].slice(0,3).upcase,
+      :cust_data => shipment_detail_params[:cust_data]
     }
   end
   alias_method :set_shipment_details!, :set_shipment_details
