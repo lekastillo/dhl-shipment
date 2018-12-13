@@ -86,6 +86,9 @@
 		<Dutiable>
 			<DeclaredCurrency><%= @duty[:declared_currency] %></DeclaredCurrency>
 			<DeclaredValue><%= @duty[:declared_value] %></DeclaredValue>
+			<%- if !@duty[:terms_of_trade].nil? %>
+				<TermsOfTrade><%= @duty[:terms_of_trade] %></TermsOfTrade>
+			<% end %>
 		</Dutiable>
 	<% end %>
     <Reference>
