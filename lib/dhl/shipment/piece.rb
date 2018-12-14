@@ -2,9 +2,14 @@ class Dhl::Shipment::Piece
   attr_accessor :piece_id
 
   def initialize(options = {})
-    [ :width, :height, :depth, :weight, :package_type, :dim_weight ].each do |i|
+    [:weight, :dim_weight ].each do |i|
       options[i] = options[i].to_f if !!options[i]
     end
+    
+    [:width, :height, :depth ].each do |i|
+      options[i] = options[i].to_i if !!options[i]
+    end
+
 
     if options[:weight] && options[:weight] > 0
       @weight = options[:weight]
@@ -14,21 +19,27 @@ class Dhl::Shipment::Piece
 
     if options[:width] || options[:height] || options[:depth]
       [ :width, :height, :depth].each do |req|
-        if options[req].to_f > 0.0
-          instance_variable_set("@#{req}", options[req].to_f)
+        if options[req].to_f > 1
+          instance_variable_set("@#{req}", options[req].to_i)
         else
           raise Dhl::Shipment::OptionsError, required_option_error_message(req)
         end
       end
     end
 
+    
+    @dim_weight = options[:dim_weight] if options[:dim_weight]
+    @package_type = options[:package_type] if options[:package_type]
+    @piece_contents = options[:piece_contents] if options[:piece_contents]
+    @piece_reference = options[:piece_reference] if options[:piece_reference]
+    
     @piece_id = options[:piece_id] || 1
 
   end
 
   def to_h
     h = {}
-    [ :width, :height, :depth, :weight, :dim_weight, :package_type ].each do |req|
+    [ :width, :height, :depth, :weight, :dim_weight, :package_type, :piece_contents, :piece_reference].each do |req|
       if x = instance_variable_get("@#{req}")
         h[req.to_s.capitalize] = x
       end
@@ -41,12 +52,14 @@ class Dhl::Shipment::Piece
 <Piece>
   <PieceID>#{@piece_id}</PieceID>
 eos
-
+    xml_str << "  <PackageType>#{@height}</PackageType>\n" if @height
+    xml_str << "  <Weight>#{@weight}</Weight>\n" if @weight
+    xml_str << "  <DimWeight>#{@weight}</DimWeight>\n" if @dim_weight
+    xml_str << "  <Width>#{@width}</Width>\n" if @width
     xml_str << "  <Height>#{@height}</Height>\n" if @height
     xml_str << "  <Depth>#{@depth}</Depth>\n" if @depth
-    xml_str << "  <Width>#{@width}</Width>\n" if @width
-    xml_str << "  <Weight>#{@weight}</Weight>\n" if @weight
-
+    xml_str << "  <PieceContents>#{@depth}</PieceContents>\n" if @piece_contents
+    xml_str << "  <PieceReference>#{@depth}</PieceReference>\n" if @piece_reference
     xml_str += "</Piece>\n"
     xml_str
   end

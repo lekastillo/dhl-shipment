@@ -18,30 +18,19 @@
     <% else %>
 		<RequestedPickupTime>N</RequestedPickupTime>
     <% end %>
-	<%- if requested_pickup_time? %>
-		<Place>
-			<ResidenceOrBusiness><%= @place[:resident_or_business]%></ResidenceOrBusiness>
-			<CompanyName><%= @place[:company_name]%></CompanyName>
-			<AddressLine><%= @place[:address_line1]%></AddressLine>
-			<%- if !@place[:address_line2].nil? %>
-				<AddressLine><%= @place[:address_line2] %></AddressLine>
-			<% end %>
-			<%- if !@place[:address_line3].nil? %>
-				<AddressLine><%= @place[:address_line3] %></AddressLine>
-			<% end %>
-			<City><%= @place[:city]%></City>
-			<CountryCode><%= @place[:country_code]%></CountryCode>
-			<PostalCode><%= @place[:postal_code]%></PostalCode>
-		</Place>
-    <% end %>
     <NewShipper>Y</NewShipper>
 	<LanguageCode><%= @language %></LanguageCode>
 	<PiecesEnabled>Y</PiecesEnabled>
     <Billing>
-		<ShipperAccountNumber><%= @shipper_dhl_account %></ShipperAccountNumber>
-		<ShippingPaymentType><%= @shipping_payment_type %></ShippingPaymentType>
-		<BillingAccountNumber><%= @billing_dhl_account %></BillingAccountNumber>
-		<DutyPaymentType><%= @shipping_payment_type %></DutyPaymentType>
+		<ShipperAccountNumber><%= @billing[:shipper_account_number] %></ShipperAccountNumber>
+		<ShippingPaymentType><%= @billing[:shipping_payment_type] %></ShippingPaymentType>
+		<BillingAccountNumber><%= @billing[:billing_account_number] %></BillingAccountNumber>
+		<%- if !@billing[:duty_payment_type].nil? %>
+			<DutyPaymentType><%= @billing[:duty_payment_type] %></DutyPaymentType>
+		<% end %>
+		<%- if !@billing[:duty_account_number].nil? %>
+			<DutyAccountNumber><%= @billing[:duty_account_number] %></DutyAccountNumber>
+		<% end %>
 	</Billing>
     <Consignee>
 		<CompanyName><%= @consignee[:company_name] %></CompanyName>
@@ -56,14 +45,23 @@
 			<AddressLine><%= @consignee[:address_line3] %></AddressLine>
 		<% end %>
 		<City><%= @consignee[:city] %></City>
-		<%- if !@consignee[:postal_code].nil? %>
-			<PostalCode><%= @consignee[:postal_code] %></PostalCode>
-		<% end %>
 		<%- if !@consignee[:division].nil? %>
 			<Division><%= @consignee[:division] %></Division>
 		<% end %>
+		<%- if !@consignee[:division_code].nil? %>
+			<DivisionCode><%= @consignee[:division_code] %></DivisionCode>
+		<% end %>
+		<%- if !@consignee[:postal_code].nil? %>
+			<PostalCode><%= @consignee[:postal_code] %></PostalCode>
+		<% end %>
 		<CountryCode><%= @consignee[:country_code] %></CountryCode>
 		<CountryName><%= @consignee[:country_name] %></CountryName>
+		<%- if !@consignee[:federal_tax_id].nil? %>
+			<FederalTaxId><%= @consignee[:federal_tax_id] %></FederalTaxId>
+		<% end %>
+		<%- if !@consignee[:state_tax_id].nil? %>
+			<StateTaxID><%= @consignee[:state_tax_id] %></StateTaxID>
+		<% end %>
 		<Contact>
 			<PersonName><%= @consignee[:person_name] %></PersonName>
 			<PhoneNumber><%= @consignee[:phone_number] %></PhoneNumber>
@@ -84,8 +82,8 @@
 	</Consignee>
 	<%- if dutiable? %>
 		<Dutiable>
-			<DeclaredCurrency><%= @duty[:declared_currency] %></DeclaredCurrency>
 			<DeclaredValue><%= @duty[:declared_value] %></DeclaredValue>
+			<DeclaredCurrency><%= @duty[:declared_currency] %></DeclaredCurrency>
 			<%- if !@duty[:terms_of_trade].nil? %>
 				<TermsOfTrade><%= @duty[:terms_of_trade] %></TermsOfTrade>
 			<% end %>
@@ -112,10 +110,12 @@
 	</ShipmentDetails>
 	<Shipper>
 		<ShipperID><%= @shipper[:shipper_id] %></ShipperID>
-		<RegisteredAccount><%= @shipper[:shipper_account] %></RegisteredAccount>
 		<CompanyName><%= @shipper[:company_name] %></CompanyName>
 		<%- if !@shipper[:suit_department_name].nil? %>
 			<SuiteDepartmentName><%= @shipper[:suit_department_name] %></SuiteDepartmentName>
+		<% end %>
+		<%- if !@shipper[:shipper_account].nil? %>
+			<RegisteredAccount><%= @shipper[:shipper_account] %></RegisteredAccount>
 		<% end %>
 		<AddressLine><%= @shipper[:address_line1] %></AddressLine>
 		<%- if !@shipper[:address_line2].nil? %>
@@ -125,14 +125,23 @@
 			<AddressLine><%= @shipper[:address_line3] %></AddressLine>
 		<% end %>
 		<City><%= @shipper[:city] %></City>
-		<%- if !@shipper[:postal_code].nil? %>
-			<PostalCode><%= @shipper[:postal_code] %></PostalCode>
-		<% end %>
 		<%- if !@shipper[:division].nil? %>
 			<Division><%= @shipper[:division] %></Division>
 		<% end %>
+		<%- if !@shipper[:division_code].nil? %>
+			<DivisionCode><%= @shipper[:division_code] %></DivisionCode>
+		<% end %>
+		<%- if !@shipper[:postal_code].nil? %>
+			<PostalCode><%= @shipper[:postal_code] %></PostalCode>
+		<% end %>
 		<CountryCode><%= @shipper[:country_code] %></CountryCode>
 		<CountryName><%= @shipper[:country_name] %></CountryName>
+		<%- if !@shipper[:federal_tax_id].nil? %>
+			<FederalTaxId><%= @shipper[:federal_tax_id] %></FederalTaxId>
+		<% end %>
+		<%- if !@shipper[:state_tax_id].nil? %>
+			<StateTaxID><%= @shipper[:state_tax_id] %></StateTaxID>
+		<% end %>
 		<Contact>
 			<PersonName><%= @shipper[:person_name] %></PersonName>
 			<PhoneNumber><%= @shipper[:phone_number] %></PhoneNumber>
@@ -151,6 +160,30 @@
 			<Suburb><%= @shipper[:suburb] %></Suburb>
 		<% end %>
 	</Shipper>
+	<%- if requested_pickup_time? %>
+		<Place>
+			<ResidenceOrBusiness><%= @place[:resident_or_business]%></ResidenceOrBusiness>
+			<CompanyName><%= @place[:company_name]%></CompanyName>
+			<AddressLine><%= @place[:address_line1]%></AddressLine>
+			<%- if !@place[:address_line2].nil? %>
+				<AddressLine><%= @place[:address_line2] %></AddressLine>
+			<% end %>
+			<%- if !@place[:address_line3].nil? %>
+				<AddressLine><%= @place[:address_line3] %></AddressLine>
+			<% end %>
+			<City><%= @place[:city]%></City>
+			<CountryCode><%= @place[:country_code]%></CountryCode>
+			<%- if !@place[:division].nil? %>
+				<Division><%= @place[:division] %></Division>
+			<% end %>
+			<%- if !@place[:division_code].nil? %>
+				<DivisionCode><%= @place[:division_code] %></DivisionCode>
+			<% end %>
+			<%- if !@place[:postal_code].nil? %>
+			<PostalCode><%= @place[:postal_code] %></PostalCode>
+		<% end %>
+		</Place>
+    <% end %>
 	<Notification>
 		<EmailAddress><%= @shipper[:email] %></EmailAddress>
 		<Message>Lorem Ipsum Dolor Ammet, Send</Message>

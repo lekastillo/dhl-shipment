@@ -425,25 +425,78 @@ The above block sets defaults for use thereafter. You would then not have to pas
 
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/deseretbook/dhl-get_quote/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
-
+```ruby
 
 require 'dhl-shipment'
 request=Dhl::Shipment::Request.new(:site_id => "MOVISADECV", :password => "a23M9jH1DC", :test_mode => true)
-request.set_consignee('Lekastillo SA de CV', nil, 'Casa 5 N 4', nil, nil, 'San Salvador', 'CALLE MONSERRAT', nil, nil,  'SV', 'El Salvador', 'Luis Castillo', 50324080686, nil, nil, 'castillovaliente@gmail.com', 50379900988)
-request.set_shipper(123123123,1233123123,'Mia Logistic', nil, '2630 NW 75th Avenue', nil, nil, 'MIAMI', nil, 33122, nil, 'US', 'United States of America', 'William Monico', 50324080686, nil, nil, 'luis_castillo777@hotmail.com', 50376349171)
-request.set_shipment_details(10, 'K', 'P', '11/12/2018', 'algo que no se', 'C', 'YP', 'Y', 'USD', 'LABEL CUS')
-request.dutiable(100, 'USD')
+
+consignee_params = {}
+consignee_params[:company_name] = 'Lekastillo SA de CV'
+consignee_params[:address_line1] = 'Casa 5 N 4'
+consignee_params[:city] = 'SAN SALVADOR'
+consignee_params[:suburb] = 'COLONIA SAN BENITO'
+consignee_params[:country_code] = 'SV'
+consignee_params[:country_name] = 'EL SALVADOR'
+consignee_params[:person_name] = 'Luis Castillo'
+consignee_params[:phone_number] = 50324080686
+consignee_params[:email] = 'castillovaliente@gmail.com'
+consignee_params[:mobile_phone_number] = 50379900988
+
+request.set_consignee(consignee_params)
+
+shipper_params = {}
+shipper_params[:shipper_id] = 123123123
+shipper_params[:shipper_account] = 123123123
+shipper_params[:company_name] = 'Mia Logistic'
+shipper_params[:address_line1] = '2630 NW 75th Avenue'
+shipper_params[:city] = 'MIAMI'
+shipper_params[:postal_code] = 33122
+shipper_params[:country_code] = 'US'
+shipper_params[:country_name] = 'UNITED STATES OF AMERICA'
+shipper_params[:person_name] = 'William Monico'
+shipper_params[:phone_number] = 50324080686
+shipper_params[:email] = 'luis_castillo777@hotmail.com'
+shipper_params[:mobile_phone_number] = 50376349171
+
+request.set_shipper(shipper_params)
+
+shipment_detail_params = {}
+shipment_detail_params[:weight] = 10
+shipment_detail_params[:weight_unit] = 'K'
+shipment_detail_params[:global_product_code] = 'P'
+shipment_detail_params[:date] = DateTime.now.to_s
+shipment_detail_params[:content] = 'algo que no se'
+shipment_detail_params[:dimension_unit] = 'C'
+shipment_detail_params[:package_type] = 'YP'
+shipment_detail_params[:is_dutiable] = 'Y'
+shipment_detail_params[:currency_code] = 'USD'
+shipment_detail_params[:cust_data] = 'LABEL CUSTOM'
+
+
+request.set_shipment_details(shipment_detail_params)
+
+dutiable_params = {}
+
+dutiable_params[:value] = 100
+dutiable_params[:currency_code] = 'USD'
+dutiable_params[:terms_of_trade] = 'DAP' 
+
+request.dutiable(dutiable_params)
+
+billing_params = {}
+
+billing_params[:shipper_account_number] = '753871175'
+billing_params[:shipping_payment_type] = 'S'
+billing_params[:billing_account_number] = '753871175'
+billing_params[:duty_payment_type] = 'S'
+billing_params[:duty_account_number = '753871175'
+
 request.pieces << Dhl::Shipment::Piece.new(:height => 20.0, :weight => 3.5, :width => 20.0, :depth => 19.0, :dim_weight => 3 )
-request.billing_dhl_account='12312312323'
-request.shipper_dhl_account='12312312312312'
-request.shipment_reference='1234567890123456789012345678901'
 request.shipment_time=DateTime.now.to_s
 request.reference_id='123123123123'
-request.shipping_payment_type='S'
+
 request.to_xml
-
-
 
 response = request.post
 
-
+```

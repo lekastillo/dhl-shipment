@@ -14,6 +14,7 @@ class Dhl::Shipment
     def log_level; :critical; end # by default we will log these
     class UnknownError < Upstream; end
     class ValidationFailureError < Upstream; end
+    class ParsinDataError < Upstream; end
     class ConditionError < Upstream
       attr_reader :code, :message
       def initialize(code, message)

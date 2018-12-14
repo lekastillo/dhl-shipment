@@ -22,13 +22,16 @@ class Dhl::Shipment::Response
       @error = case response_error_condition_code.to_s
       when "100"
         Dhl::Shipment::Upstream::ValidationFailureError.new(response_error_condition_data)
+      when "111"
+        Dhl::Shipment::Upstream::ParsinDataError.new(response_error_condition_data)
       else
         Dhl::Shipment::Upstream::UnknownError.new(response_error_condition_data)
       end
-    elsif condition_indicates_error?
-      @errors = create_condition_errors
+    # elsif condition_indicates_error?
+    #   @errors = create_condition_errors
     else
-      load_costs(DEFAULT_CURRENCY_ROLE_TYPE_CODE)
+    #   load_costs(DEFAULT_CURRENCY_ROLE_TYPE_CODE)
+    puts 'all is good'
     end
   end
 

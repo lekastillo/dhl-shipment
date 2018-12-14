@@ -4,8 +4,8 @@ require 'erb'
 require 'set'
 
 class Dhl::Shipment::Request
-  attr_reader :site_id, :password, :duty, :requested_pickup_time, :place, :consignee, :shipper, :shippet_detail
-  attr_accessor :pieces, :language, :shipper_dhl_account, :shipping_payment_type, :billing_dhl_account, :reference_id, :shipment_time, :shipment_reference
+  attr_reader :site_id, :password, :duty, :requested_pickup_time, :place, :consignee, :shipper, :shippet_detail, :billing
+  attr_accessor :pieces, :language, :reference_id, :shipment_time, :shipment_reference
 
   URLS = {
     :production => 'https://xmlpi-ea.dhl.com/XMLShippingServlet',
@@ -141,6 +141,18 @@ class Dhl::Shipment::Request
     }
   end
   alias_method :set_shipment_details!, :set_shipment_details
+
+
+  def set_billing(billing_params = {})
+    @shipment_detail = {
+      :shipper_account_number => billing_params[:shipper_account_number],
+      :shipping_payment_type => billing_params[:shipping_payment_type],
+      :billing_account_number => billing_params[:billing_account_number],
+      :duty_payment_type => billing_params[:duty_payment_type],
+      :duty_account_number => billing_params[:duty_account_number]
+    }
+  end
+  alias_method :set_billing!, :set_billing
 
 
   def shipment_details?
