@@ -186,7 +186,7 @@
     <% end %>
 	<%- if notificable? %>
 		<Notification>
-			<EmailAddress><%= @notification[:emails].join(';') %></EmailAddress>
+			<EmailAddress><%= @notification[:emails] %></EmailAddress>
 			<Message><%= @notification[:message] %></Message>
 		</Notification>
     <% end %>
