@@ -185,7 +185,7 @@ class Dhl::Shipment::Request
   # def dutiable(value, currency_code="USD", terms_of_trade)
   def notificable(notificable_params = {})
     @notification = {
-      :emails => notificable_params[:emails]join(';'),
+      :emails => notificable_params[:emails].join(';'),
       :message => notificable_params[:message]
     }
   end
