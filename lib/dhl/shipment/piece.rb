@@ -52,7 +52,7 @@ class Dhl::Shipment::Piece
 <Piece>
   <PieceID>#{@piece_id}</PieceID>
 eos
-    xml_str << "  <PackageType>#{@height}</PackageType>\n" if @height
+    xml_str << "  <PackageType>#{@package_type}</PackageType>\n" if @package_type
     xml_str << "  <Weight>#{@weight}</Weight>\n" if @weight
     xml_str << "  <DimWeight>#{@weight}</DimWeight>\n" if @dim_weight
     xml_str << "  <Width>#{@width}</Width>\n" if @width

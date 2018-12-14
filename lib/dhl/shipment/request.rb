@@ -4,7 +4,7 @@ require 'erb'
 require 'set'
 
 class Dhl::Shipment::Request
-  attr_reader :site_id, :password, :duty, :requested_pickup_time, :place, :consignee, :shipper, :shippet_detail, :billing
+  attr_reader :site_id, :password, :duty, :requested_pickup_time, :place, :consignee, :shipper, :shippet_detail, :billing, :notification
   attr_accessor :pieces, :language, :reference_id, :shipment_time, :shipment_reference, :request_archive_doc
 
   URLS = {
@@ -145,7 +145,7 @@ class Dhl::Shipment::Request
 
 
   def set_billing(billing_params = {})
-    @shipment_detail = {
+    @billing = {
       :shipper_account_number => billing_params[:shipper_account_number],
       :shipping_payment_type => billing_params[:shipping_payment_type],
       :billing_account_number => billing_params[:billing_account_number],
