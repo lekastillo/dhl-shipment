@@ -28,7 +28,7 @@ class Dhl::Shipment::Request
     @duty = false
     @place = false
     @language = 'es'
-    @request_archive_doc = 'N'
+    @request_archive_doc = 'Y'
 
     @pieces = []
   end
@@ -179,7 +179,7 @@ class Dhl::Shipment::Request
   end
 
   def notificable?
-    !!@notificable
+    !!@notification
   end
 
   # def dutiable(value, currency_code="USD", terms_of_trade)
