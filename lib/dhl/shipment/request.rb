@@ -5,7 +5,7 @@ require 'set'
 
 class Dhl::Shipment::Request
   attr_reader :site_id, :password, :duty, :requested_pickup_time, :place, :consignee, :shipper, :shippet_detail, :billing
-  attr_accessor :pieces, :language, :reference_id, :shipment_time, :shipment_reference
+  attr_accessor :pieces, :language, :reference_id, :shipment_time, :shipment_reference, :request_archive_doc
 
   URLS = {
     :production => 'https://xmlpi-ea.dhl.com/XMLShippingServlet',
@@ -27,7 +27,8 @@ class Dhl::Shipment::Request
     @requested_pickup_time = false
     @duty = false
     @place = false
-    @language = 'en'
+    @language = 'es'
+    @request_archive_doc = 'N'
 
     @pieces = []
   end
@@ -177,18 +178,18 @@ class Dhl::Shipment::Request
     @duty = false
   end
 
-  # def payment_account_number(pac = nil)
-  #   if pac.to_s.size > 0
-  #     @payment_account_number = pac
-  #   else
-  #     @payment_account_number
-  #   end
-  # end
+  def notificable?
+    !!@notificable
+  end
 
-  # def payment_country_code(country_code)
-  #   @payment_country_code = country_code
-  # end
-  
+  # def dutiable(value, currency_code="USD", terms_of_trade)
+  def notificable(notificable_params = {})
+    @notification = {
+      :emails => notificable_params[:emails],
+      :message => notificable_params[:message]
+    }
+  end
+  alias_method :notificable!, :notificable
 
   def dimensions_unit
     @dimensions_unit ||= Dhl::Shipment.dimensions_unit

@@ -495,6 +495,13 @@ request.pieces << Dhl::Shipment::Piece.new(:height => 20.0, :weight => 3.5, :wid
 request.shipment_time=DateTime.now.to_s
 request.reference_id='123123123123'
 
+notificable_params = {}
+notificable_params[:emails] << consignee_params[:email]
+notificable_params[:emails] << 'lcastillo@joven360.com'
+notificable_params[:message] = 'Hey Luis, te mando los repuestos que necesitabas'
+
+request.notificable(notificable_params)
+
 request.to_xml
 
 response = request.post
