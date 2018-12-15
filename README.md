@@ -491,14 +491,17 @@ billing_params[:billing_account_number] = '753871175'
 billing_params[:duty_payment_type] = 'S'
 billing_params[:duty_account_number] = '753871175'
 
+request.set_billing(billing_params)
+
 request.pieces << Dhl::Shipment::Piece.new(:height => 20.0, :weight => 3.5, :width => 20.0, :depth => 19.0, :dim_weight => 3 )
 request.shipment_time=DateTime.now.to_s
 request.reference_id='123123123123'
-
+request.shipment_reference='123123123123123123123123'
 notificable_params = {}
-notificable_params[:emails] << consignee_params[:email]
-
-notificable_params[:emails] << 'lcastillo@joven360.com'
+emails = []
+emails << 'lcastillo@joven360.com'
+emails << consignee_params[:email]
+notificable_params[:emails] << emails
 
 notificable_params[:message] = 'Hey Luis, te mando los repuestos que necesitabas'
 
