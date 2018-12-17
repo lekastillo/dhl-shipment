@@ -464,7 +464,7 @@ shipment_detail_params = {}
 shipment_detail_params[:weight] = 10
 shipment_detail_params[:weight_unit] = 'K'
 shipment_detail_params[:global_product_code] = 'P'
-shipment_detail_params[:date] = DateTime.now.to_s
+shipment_detail_params[:date] = DateTime.now.to_date.to_s
 shipment_detail_params[:content] = 'algo que no se'
 shipment_detail_params[:dimension_unit] = 'C'
 shipment_detail_params[:package_type] = 'YP'
@@ -496,12 +496,12 @@ request.set_billing(billing_params)
 request.pieces << Dhl::Shipment::Piece.new(:height => 20.0, :weight => 3.5, :width => 20.0, :depth => 19.0, :dim_weight => 3 )
 request.shipment_time=DateTime.now.to_s
 request.reference_id='123123123123'
-request.shipment_reference='123123123123123123123123'
+request.shipment_reference='123123123123123123123123123123'
 notificable_params = {}
 emails = []
 emails << 'lcastillo@joven360.com'
 emails << consignee_params[:email]
-notificable_params[:emails] << emails
+notificable_params[:emails] = emails
 
 notificable_params[:message] = 'Hey Luis, te mando los repuestos que necesitabas'
 
