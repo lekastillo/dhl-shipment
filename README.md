@@ -510,5 +510,12 @@ request.notificable(notificable_params)
 request.to_xml
 
 response = request.post
+decoded_data=Base64.decode64(response.parsed_xml['ShipmentResponse']['LabelImage']['OutputImage'])
+file_name='test.pdf'
+@temp_file = Tempfile.new(file_name)
+
+ File.open(@temp_file, 'wb') {|f| f.write(decoded_data)}
+@temp_file.path
 
 ```
+
