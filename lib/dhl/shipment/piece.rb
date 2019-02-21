@@ -58,8 +58,8 @@ eos
     xml_str << "  <Width>#{@width}</Width>\n" if @width
     xml_str << "  <Height>#{@height}</Height>\n" if @height
     xml_str << "  <Depth>#{@depth}</Depth>\n" if @depth
-    xml_str << "  <PieceContents>#{@depth}</PieceContents>\n" if @piece_contents
-    xml_str << "  <PieceReference>#{@depth}</PieceReference>\n" if @piece_reference
+    xml_str << "  <PieceContents>#{@piece_contents}</PieceContents>\n" if @piece_contents
+    xml_str << "  <PieceReference>#{@piece_reference}</PieceReference>\n" if @piece_reference
     xml_str += "</Piece>\n"
     xml_str
   end
