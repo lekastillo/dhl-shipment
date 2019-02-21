@@ -82,7 +82,9 @@
 	</Consignee>
 	<%- if dutiable? %>
 		<Dutiable>
+			<%- if !@consignee[:declared_value] != 0 %>
 			<DeclaredValue><%= @duty[:declared_value] %></DeclaredValue>
+			<% end %>
 			<DeclaredCurrency><%= @duty[:declared_currency] %></DeclaredCurrency>
 			<%- if !@duty[:terms_of_trade].nil? %>
 				<TermsOfTrade><%= @duty[:terms_of_trade] %></TermsOfTrade>
