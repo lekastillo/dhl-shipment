@@ -115,11 +115,11 @@ class Dhl::Shipment::Response
 protected
 
   def response_indicates_error?
-    @parsed_xml.keys.include?('ErrorResponse')
+    @parsed_xml.keys.include?('ShipmentValidateErrorResponse')
   end
 
   def response_error_status_condition
-    @response_error_status_condition ||= @parsed_xml['ErrorResponse']['Response']['Status']['Condition']
+    @response_error_status_condition ||= @parsed_xml['ShipmentValidateErrorResponse']['Response']['Status']['Condition']
   end
 
   def response_error_condition_code
