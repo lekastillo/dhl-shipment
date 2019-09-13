@@ -12,7 +12,7 @@ class Dhl::Shipment::Response
     @errors = []
 
     begin
-      @parsed_xml = MultiXml.parse(xml)
+      @parsed_xml = MultiXml.parse(xml.encode("Windows-1252", invalid: :replace, undef: :replace))
     rescue MultiXml::ParseError => e
       @errors << e
       return self
